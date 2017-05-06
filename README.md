@@ -20,7 +20,7 @@ begin_pynode(run)
 * **/pynode** - The main folder for the PyNode library
   * **main.py** - Imports all relevant Python functions, and installs updates before the rest of the code is run
   * **autoupdate.txt** - Can be used to turn off automatic updating
-  * **/cef** - Contains the final build of the C++ application (doesn't update automatically). Note that this folder is not available in this repository due to its large size and OS dependence. Download it <a href="http://www.alexsocha.com/pynode#download">here</a>.
+  * **/cef** - Contains the final build of the C++ application (doesn't update automatically). Note that the contents of this folder are not available in this repository due to their large size and OS dependence. Download them <a href="http://www.alexsocha.com/pynode#download">here</a>.
     * **os.txt** - Provides the operating system of the PyNode distribution (win64/win32/macosx), allowing the correct version of the application to be run.
     * **/win64** - Binaries for 64-bit Windows.
     * **/win32** - Binaries for 32-bit Windows.
