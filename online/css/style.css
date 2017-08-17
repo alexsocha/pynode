@@ -655,7 +655,7 @@ body.pynode .appSectionTitle, body.pynode_output .appSectionTitle, body.pynode_e
     color: white;
     background-color: #525252;
     padding-left: 10px;
-    width: calc(100% - 5px);
+    width: calc(100% - 10px);
     height: 30px;
     padding-top: 10px;
 }
