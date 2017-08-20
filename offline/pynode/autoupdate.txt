@@ -1,5 +1,0 @@
-True
-
-# If the first line is 'True', PyNode will automatically update when a new version is available.
-# The contents of the 'src' folder will be overridden.
-# Set the first line to 'False' to disable automatic updating.
