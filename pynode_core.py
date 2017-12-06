@@ -3,6 +3,7 @@ import time
 import traceback
 import javascript
 import random
+import json
 from browser import document, window, alert, timer
 from browser.local_storage import storage
 
@@ -58,6 +59,9 @@ def add_event(event, source=None):
         if source is not None:
             if isinstance(source, pynode_graphlib.Node) and not pynode_graphlib.graph.has_node(source): return
             if isinstance(source, pynode_graphlib.Edge) and not pynode_graphlib.graph.has_edge(source): return
+        if isinstance(event, Event) and isinstance(event.func, str) and event.func.startswith("js_"):
+            event.args = [event.func, json.dumps(event.args)]
+            event.func = window["js_run_function"]
         PynodeCoreGlobals.event_queue.append(event)
 
 def format_string_HTML(s):
@@ -140,7 +144,6 @@ def reset(clear_console=True):
         PynodeCoreGlobals.GLOBAL_USER_ID = 0
         if clear_console: window.writeOutput("", False)
         pynode_graphlib.graph._reset()
-        pynode_graphlib.clear_delays()
         js_clear()
         if PynodeCoreGlobals.event_timer is not None: timer.clear_timeout(PynodeCoreGlobals.event_timer)
         if PynodeCoreGlobals.update_timer is not None: timer.clear_timeout(PynodeCoreGlobals.update_timer)
@@ -250,82 +253,12 @@ def js_update(layout=True):
         except:
             pass
 
-def js_add_node(data):
-    if not data["static"]:
-        x = 0; y = 0
-        size = int(PynodeCoreGlobals.positioning_counter ** 0.5)
-        if size**2 != PynodeCoreGlobals.positioning_counter: size += 1
-        if size % 2 == 0: size += 1
-        half_size = int(size / 2.0)
-        difference = size**2 - PynodeCoreGlobals.positioning_counter
-        if difference <= size: y = -half_size; x = -half_size + (size - difference)
-        elif difference <= (size * 2) - 1: y = -half_size + (difference - size); x = -half_size
-        elif difference <= (size * 3) - 2: y = half_size; x = -half_size + (difference - (size * 2)) + 1
-        elif difference <= (size * 4) - 3: y = -half_size + (size - (difference - (size * 3) + 3)); x = half_size
-        data["x"] = (window.greuler_instance.options.data.size[0] / 2.0) + (x * 25); data["y"] = (window.greuler_instance.options.data.size[1] / 2.0) + (-y * 25)
-        PynodeCoreGlobals.positioning_counter += 1
-    window.greuler_instance.graph.addNode(data)
-    js_update(True)
-    timer.set_timeout(refresh_layout, 65)
-
-def js_remove_node(node_id):
-    window.greuler_instance.graph.removeNode({"id": node_id})
-    js_update(True)
-
-def js_add_edge(data):
-    window.greuler_instance.graph.addEdge(data)
-    if len(window.greuler_instance.graph.edges) >= len(window.greuler_instance.graph.nodes) - 3 and (len(window.greuler_instance.graph.nodes) - 2) % 9 == 0: PynodeCoreGlobals.positioning_counter = 0
-    js_update(True)
-
-def js_remove_edge(edge_id):
-    window.greuler_instance.graph.removeEdge({"id": edge_id})
-    js_update(True)
-
-def js_add_all(element_data):
-    enable_update(False)
-    for x in element_data:
-        if x[0] == 0: js_add_node(x[1])
-        elif x[0] == 1: js_add_edge(x[1])
-    enable_update(True)
-    js_update(True)
-
-def js_remove_all(element_data):
-    enable_update(False)
-    for x in element_data:
-        if x[0] == 0: js_remove_node(x[1]["id"])
-        elif x[0] == 1: js_remove_edge(x[1]["id"])
-    enable_update(True)
-    js_update(True)
-
-def js_set_spread(spread):
-    window.greuler_instance.graph.linkDistance = spread
-    window.greuler_instance.options.data.linkDistance = spread
-    js_update(True)
-
 def js_clear():
     window.greuler_instance.graph.removeEdges(window.greuler_instance.graph.edges)
     window.greuler_instance.graph.removeNodes(window.getGraphNodes())
     js_update(True)
 
-def js_node_set_value(node_id, value):
-    if window.greuler_instance.graph.hasNode({"id": node_id}):
-        window.greuler_instance.graph.getNode({"id": node_id}).label = value
-        js_update(False)
-
-def js_node_set_position(node_id, x, y, relative):
-    if window.greuler_instance.graph.hasNode({"id": node_id}):
-        n = window.greuler_instance.graph.getNode({"id": node_id})
-        if x is None or y is None:
-            n.fixed = False
-            n.static = True
-            return
-        n.fixed = True
-        n.static = True
-        n.relativePosition = relative
-        if relative: n.rx = x; n.ry = y
-        else: n.ax = x; n.ay = y; n.x = x; n.y = y
-        timer.set_timeout(update_instant_layout, 215)
-
+# This is a workaround for a feature that should be implemented properly but isn't. Try not to use it.
 def js_node_get_position(node):
     if window.greuler_instance.graph.hasNode({"id": node._internal_id}):
         return (int(window.greuler_instance.graph.getNode({"id": node._internal_id}).x), int(window.greuler_instance.graph.getNode({"id": node._internal_id}).y))
@@ -334,87 +267,26 @@ def js_node_get_position(node):
         if node._is_pos_relative: return (int(node._position[0] * window.greuler_instance.options.data.size[0]), int(node._position[1] * window.greuler_instance.options.data.size[1]))
         else: return (int(node._position[0]), int(node._position[1]))
 
-def js_node_set_label(node_id, text, label_id):
-    if window.greuler_instance.graph.hasNode({"id": node_id}):
-        n = window.greuler_instance.graph.getNode({"id": node_id})
-        if label_id == 0: n.topRightLabel = text
-        elif label_id == 1: n.topLeftLabel = text
-        js_update(False)
-
-def js_node_set_size(node_id, size):
-    if window.greuler_instance.graph.hasNode({"id": node_id}):
-        window.greuler_instance.graph.getNode({"id": node_id}).r = size
-        window.greuler_instance.selector.getNode({"id": node_id}).transition("highlight_node_size").duration(0)
-        window.greuler_instance.selector.getNode({"id": node_id}).transition("node_size").duration(500).attr("r", size)
-        js_update(True)
-
-def js_node_set_color(node_id, color, text_style):
-    if window.greuler_instance.graph.hasNode({"id": node_id}):
-        window.greuler_instance.graph.getNode({"id": node_id}).color = color
-        window.greuler_instance.graph.getNode({"id": node_id}).labelStyle = text_style
-        window.greuler_instance.selector.getNode({"id": node_id}).transition("highlight_node_color").duration(0)
-        window.greuler_instance.selector.getNodeOuter({"id": node_id}).selectAll("text.label").transition("highlight_node_outline").duration(0)
-        window.greuler_instance.selector.getNode({"id": node_id}).transition("node_color").duration(500).attr("fill", color)
-        if str(text_style).split(",")[3] == "False": window.greuler_instance.selector.getNodeOuter({"id": node_id}).selectAll("text.label").transition("node_stroke_color").duration(500).attr("stroke", str(text_style).split(",")[2])
-        js_update(False)
-
-def js_node_set_value_style(node_id, style):
-    if window.greuler_instance.graph.hasNode({"id": node_id}):
-        window.greuler_instance.graph.getNode({"id": node_id}).labelStyle = style
-        window.greuler_instance.selector.getNodeOuter({"id": node_id}).selectAll("text.label").transition("highlight_node_outline").duration(0)
-        window.greuler_instance.selector.getNodeOuter({"id": node_id}).selectAll("text.label").transition("node_stroke_color").duration(0)
-        if str(style).split(",")[3] == "False": window.greuler_instance.selector.getNodeOuter({"id": node_id}).selectAll("text.label").attr("stroke", str(style).split(",")[2])
-        js_update(False)
-
-def js_node_set_label_style(node_id, style, label_id):
-    if window.greuler_instance.graph.hasNode({"id": node_id}):
-        if label_id == 0: window.greuler_instance.graph.getNode({"id": node_id}).topRightLabelStyle = style
-        elif label_id == 1: window.greuler_instance.graph.getNode({"id": node_id}).topLeftLabelStyle = style
-        js_update(False)
-
-def js_node_highlight(node_id, size=None, color=None):
-    if window.greuler_instance.graph.hasNode({"id": node_id}):
-        data = {}
-        if size is not None: data["size"] = size
-        if color is not None: data["color"] = color
-        window.greuler_instance.selector.highlightNode({"id": node_id}, data)
-
-def js_edge_set_weight(edge_id, weight):
-    if window.greuler_instance.graph.hasEdge({"id": edge_id}):
-        window.greuler_instance.graph.getEdge({"id": edge_id}).weight = weight
-        js_update(False)
-
-def js_edge_set_directed(edge_id, directed):
-    if window.greuler_instance.graph.hasEdge({"id": edge_id}):
-        window.greuler_instance.graph.getEdge({"id": edge_id}).directed = directed
-        js_update(False)
-
-def js_edge_set_width(edge_id, width):
-    if window.greuler_instance.graph.hasEdge({"id": edge_id}):
-        window.greuler_instance.graph.getEdge({"id": edge_id}).lineWidth = width
-        window.greuler_instance.selector.getEdge({"id": edge_id}).transition("highlight_edge_width").duration(0)
-        window.greuler_instance.selector.getEdge({"id": edge_id}).transition("edge_width").duration(500).attr("stroke-width", width)
-        js_update(False)
-
-def js_edge_set_color(edge_id, color):
-    if window.greuler_instance.graph.hasEdge({"id": edge_id}):
-        window.greuler_instance.graph.getEdge({"id": edge_id}).stroke = color
-        animate_edge = window.greuler_instance.selector.getEdge({"id": edge_id})
-        window.greuler_instance.selector.getEdge({"id": edge_id}).transition("highlight_edge_color").duration(0)
-        animate_edge.transition("edge_color").duration(500).attr("stroke", color)
-
-def js_edge_set_weight_style(edge_id, style):
-    if window.greuler_instance.graph.hasEdge({"id": edge_id}):
-        window.greuler_instance.graph.getEdge({"id": edge_id}).weightStyle = style
-        js_update(False)
-
-def js_edge_highlight(edge_id, width=None, color=None):
-    if window.greuler_instance.graph.hasEdge({"id": edge_id}):
-        data = {}
-        if width is not None: data["width"] = width
-        if color is not None: data["color"] = color
-        window.greuler_instance.selector.highlightEdge({"id": edge_id}, data)
-
-def js_edge_traverse(edge_id, initial_node_id, color, keep_path):
-    if window.greuler_instance.graph.hasEdge({"id": edge_id}):
-        window.greuler_instance.selector.traverseEdge({"id": edge_id}, {"stroke": color, "keepStroke": keep_path}, initial_node_id)
+# These functions have been moved over to JavaScript
+js_add_node = "js_add_node"
+js_remove_node = "js_remove_node"
+js_add_edge = "js_add_edge"
+js_remove_edge = "js_remove_edge"
+js_add_all = "js_add_all"
+js_remove_all = "js_remove_all"
+js_set_spread = "js_set_spread"
+js_node_set_value = "js_node_set_value"
+js_node_set_position = "js_node_set_position"
+js_node_set_label = "js_node_set_label"
+js_node_set_size = "js_node_set_size"
+js_node_set_color = "js_node_set_color"
+js_node_set_value_style = "js_node_set_value_style"
+js_node_set_label_style = "js_node_set_label_style"
+js_node_highlight = "js_node_highlight"
+js_edge_set_weight = "js_edge_set_weight"
+js_edge_set_directed = "js_edge_set_directed"
+js_edge_set_width = "js_edge_set_width"
+js_edge_set_color = "js_edge_set_color"
+js_edge_set_weight_style = "js_edge_set_weight_style"
+js_edge_highlight = "js_edge_highlight"
+js_edge_traverse = "js_edge_traverse"

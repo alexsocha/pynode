@@ -67,7 +67,6 @@ def add_event(event, source=None):
         if isinstance(event, EventPause):
             time.sleep(event.time / 1000.0)
         else:
-
             run_javascript_func(event.func, event.args)
 
 def execute_function(func, args):
