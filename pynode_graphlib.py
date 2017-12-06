@@ -19,9 +19,6 @@ def cancel_delay(delay_id):
         if pynode_core.PynodeCoreGlobals.delay_type[delay_id] == 1: pynode_core.timer.clear_interval(delay_id)
         else: pynode_core.timer.clear_timeout(delay_id)
         del pynode_core.PynodeCoreGlobals.delay_type[delay_id]
-def clear_delays():
-    for delay_id in pynode_core.PynodeCoreGlobals.delay_type:
-        cancel_delay(delay_id)
 
 def print_debug(value):
     pynode_core.do_print(str(value) + "\n")
