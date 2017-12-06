@@ -9,13 +9,12 @@
 * The API calls trigger visual animations (using a modified version of <a href="https://github.com/maurizzzio/greuler">Greuler</a>, built on <a href="https://github.com/d3/d3">D3</a> and <a href="https://github.com/tgdwyer/WebCola">WebCola</a>).
 
 ## Project structure
-* **pynode_graphlib.py** - The entry point for the PyNode Graphlib API, which references all Graph Theory-related functions. These are implemented in graph_api.js.
+* **pynode_graphlib.py** - The PyNode Graphlib API, which provides all Graph-related functions. This file maintains the current state of the graph, and informs graph_api.js of all the events that need to be visually displayed.
 * **pynode_core.py** - Handles the internal functions of the API, and acts as a bridge between pynode_graphlib.py and graph_api.js, allowing the API to be compatible with both the online and offline versions of PyNode.
-
 * **/css** - Contains custom fonts and the main style sheet.
 * **/images** - Contains all icons used in the interface.
 * **/js** - Contains all JavaScript code.
-    * **graph_api.js** - Contains all functions referenced by pynode_graphlib.py, and handles all updates made to the graph. Also communicates information back to C++ (and hence to Python) through the JavaScript console.
+    * **graph_api.js** - Responsible for visually updating the graph, in parallel with the calls that were made to the GraphLib API.
     * **d3_controls.js** - Handles interface events such as panning and zooming.
     * **resize.js** - Handles resizing of the window, and includes functions which manage node layout/positioning.
     * **/greuler** - The (modified) <a href="https://github.com/maurizzzio/greuler">Greuler API</a>.
