@@ -1,4 +1,4 @@
-# PyNode: Graph Theory Visualizer
+# PyNode: Graph Theory Visualizer (Offline Version)
 <a href="http://www.alexsocha.com/pynode"><img src="http://www.alexsocha.com/images/pynode/logo.png" align="left" hspace="10" vspace="6" width="100px" height="100px"></a>
 **PyNode** is a Python library for visualizing Graph Theory. It can be used to develop algorithm prototypes, or to demonstrate how algorithms work in a visual, interactive way. This is source for the offline version; the online version can be found <a href="http://www.alexsocha.com/pynode">here</a>.
 <br><br>
