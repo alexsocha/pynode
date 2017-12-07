@@ -725,7 +725,7 @@ body.pynode .pynodeDownloadBoxLinux {
     float: left;
     width: 100%;
     height: 70px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 body.pynode .pynodeDownloadBoxIcon {
@@ -736,8 +736,8 @@ body.pynode .pynodeDownloadBoxIcon {
 body.pynode .pynodeDownloadBoxIconLinux {
     float: left;
     height: 50px;
-    margin-left: -10px;
-    width: 70px;
+    margin-left: -12px;
+    width: 72px;
 }
 
 body.pynode .pynodeDownloadBoxTextWin {
@@ -745,10 +745,14 @@ body.pynode .pynodeDownloadBoxTextWin {
     padding-top: 3px;
     height: 50px;
 }
-
 body.pynode .pynodeDownloadBoxTextMac {
     float: left;
     padding-top: 16px;
+    height: 50px;
+}
+body.pynode .pynodeDownloadBoxTextLinux {
+    float: left;
+    padding-top: 24px;
     height: 50px;
 }
 
