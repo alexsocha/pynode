@@ -11,9 +11,14 @@
 ## Project structure
 * **pynode_graphlib.py** - The PyNode Graphlib API, which provides all Graph-related functions. This file maintains the current state of the graph, and informs graph_api.js of all the events that need to be visually displayed.
 * **pynode_core.py** - Handles the internal functions of the API, and acts as a bridge between pynode_graphlib.py and graph_api.js, allowing the API to be compatible with both the online and offline versions of PyNode.
+
+* **pynode.html** - The main page of the online version, which includes the editor, console, and output window. Also provides documentation for all features.
+* **index.html** - Exact copy of pynode.html used for the <a href="https://alexsocha.github.io/pynode/">gh-pages website</a>.
+* **pynode_editor.html, pynode_console.html, pynode_output.html** - Detachable editor/console/output windows.
+
 * **/css** - Contains custom fonts and the main style sheet.
-* **/images** - Contains all icons used in the interface.
-* **/js** - Contains all JavaScript code.
+* **/images/pynode** - Contains all icons used in the interface.
+* **/js/pynode** - Contains all JavaScript code.
     * **graph_api.js** - Responsible for visually updating the graph, in parallel with the calls that were made to the GraphLib API.
     * **d3_controls.js** - Handles interface events such as panning and zooming.
     * **resize.js** - Handles resizing of the window, and includes functions which manage node layout/positioning.
