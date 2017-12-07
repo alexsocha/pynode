@@ -18,14 +18,14 @@
 * **/css** - Contains custom fonts and the main style sheet.
 * **/images/pynode** - Contains all icons used in the interface.
 * **/js/pynode** - Contains all JavaScript code.
-  * **graph_api.js** - Visually updates the graph, in parallel with the calls that were made to the GraphLib API.
-  * **d3_controls.js** - Handles interface events such as panning and zooming.
-  * **resize.js** - Handles resizing of the window, and includes functions which manage node layout/positioning.
-  * **/greuler** - The (modified) <a href="https://github.com/maurizzzio/greuler">Greuler API</a>.
-  * **/cola** - The <a href="https://github.com/tgdwyer/WebCola">WebCola API</a>.
-  * **/d3** - The <a href="https://github.com/d3/d3">D3 API</a>.
+    * **graph_api.js** - Visually updates the graph, in parallel with the calls that were made to the GraphLib API.
+    * **d3_controls.js** - Handles interface events such as panning and zooming.
+    * **resize.js** - Handles resizing of the window, and includes functions which manage node layout/positioning.
+    * **/greuler** - The (modified) <a href="https://github.com/maurizzzio/greuler">Greuler API</a>.
+    * **/cola** - The <a href="https://github.com/tgdwyer/WebCola">WebCola API</a>.
+    * **/d3** - The <a href="https://github.com/d3/d3">D3 API</a>.
 * **offline_src/** - Contains the source code for the offline version of PyNode.
 * **offline_downloads/** - Contains packaged downloads for the offline version.
-  * **latest_version.zip** - Contains the latest version of the Python and JavaScript code used by the offline version, allowing for automatic updates.
-  * **latest_version.txt** - Indicates the current version number.
-  * **pynode_win64.zip, pynode_macosx.zip, etc** - Containes the fully packages offline versions of PyNode for various operating systems.
+    * **latest_version.zip** - Contains the latest version of the Python and JavaScript code used by the offline version, allowing for automatic updates.
+    * **latest_version.txt** - Indicates the current version number.
+    * **pynode_win64.zip, pynode_macosx.zip, etc** - Containes the fully packaged offline versions of PyNode for various operating systems.
