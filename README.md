@@ -11,24 +11,21 @@
 ## Project structure
 * **pynode_graphlib.py** - The PyNode Graphlib API, which provides all Graph-related functions. This file maintains the current state of the graph, and informs graph_api.js of all the events that need to be visually displayed.
 * **pynode_core.py** - Handles the internal functions of the API, and acts as a bridge between pynode_graphlib.py and graph_api.js, allowing the API to be compatible with both the online and offline versions of PyNode.
-
 * **pynode.html** - The main page of the online version, which includes the editor, console, and output window. Also provides documentation for all features.
 * **index.html** - Exact copy of pynode.html used for the <a href="https://alexsocha.github.io/pynode/">gh-pages website</a>.
 * **pynode_editor.html, pynode_console.html, pynode_output.html** - Detachable editor/console/output windows.
 * **pynode_pojects/** - Contains the Python code for the examples provided on the website.
-
 * **/css** - Contains custom fonts and the main style sheet.
 * **/images/pynode** - Contains all icons used in the interface.
 * **/js/pynode** - Contains all JavaScript code.
-    * **graph_api.js** - Visually updates the graph, in parallel with the calls that were made to the GraphLib API.
-    * **d3_controls.js** - Handles interface events such as panning and zooming.
-    * **resize.js** - Handles resizing of the window, and includes functions which manage node layout/positioning.
-    * **/greuler** - The (modified) <a href="https://github.com/maurizzzio/greuler">Greuler API</a>.
-    * **/cola** - The <a href="https://github.com/tgdwyer/WebCola">WebCola API</a>.
-    * **/d3** - The <a href="https://github.com/d3/d3">D3 API</a>.
-
+  * **graph_api.js** - Visually updates the graph, in parallel with the calls that were made to the GraphLib API.
+  * **d3_controls.js** - Handles interface events such as panning and zooming.
+  * **resize.js** - Handles resizing of the window, and includes functions which manage node layout/positioning.
+  * **/greuler** - The (modified) <a href="https://github.com/maurizzzio/greuler">Greuler API</a>.
+  * **/cola** - The <a href="https://github.com/tgdwyer/WebCola">WebCola API</a>.
+  * **/d3** - The <a href="https://github.com/d3/d3">D3 API</a>.
 * **offline_src/** - Contains the source code for the offline version of PyNode.
 * **offline_downloads/** - Contains packaged downloads for the offline version.
-    * **latest_version.zip** - Contains the latest version of the Python and JavaScript code used by the offline version, allowing for automatic updates.
-    * **latest_version.txt** - Indicates the current version number.
-    * **pynode_win64.zip, pynode_macosx.zip, etc** - Containes the fully packages offline versions of PyNode for various operating systems.
+  * **latest_version.zip** - Contains the latest version of the Python and JavaScript code used by the offline version, allowing for automatic updates.
+  * **latest_version.txt** - Indicates the current version number.
+  * **pynode_win64.zip, pynode_macosx.zip, etc** - Containes the fully packages offline versions of PyNode for various operating systems.
