@@ -1,4 +1,4 @@
-function enable_box_layout() {
+﻿function enable_box_layout() {
 	if (greuler_instance.root !== undefined) {
 		greuler_instance.root.call(window.d3.behavior.zoom().on("zoom", null));
 		updateContraints(true);
@@ -7,9 +7,12 @@ function enable_box_layout() {
 
 function enable_drag_layout() {
 	if (greuler_instance.root !== undefined) {
-		greuler_instance.root.call(window.d3.behavior.zoom().scaleExtent([0.4, 4.0]).on("zoom", pan_zoom));
-		updateContraints(false);
+		greuler_instance.root.on("mousedown", mouse_down).call(window.d3.behavior.zoom().scaleExtent([0.4, 4.0]).on("zoom", pan_zoom));
 	}
+}
+function mouse_down() {
+	var stop = window.d3.event.button || window.d3.event.ctrlKey;
+	if (stop) window.d3.event.stopImmediatePropagation();
 }
 
 function pan_zoom() {

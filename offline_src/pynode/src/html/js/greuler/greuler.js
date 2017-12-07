@@ -1480,7 +1480,12 @@ exports['default'] = function () {
 	  if (!owner.nodeDragging) { el.over = false; el.style('cursor', null); }
     }).attr('opacity', 0);
     g.transition('enter').attr('opacity', 1);
-    g.call(layout.drag);
+    g.on("mousedown", mouse_down).call(layout.drag);
+
+    function mouse_down() {
+	var stop = window.d3.event.button || window.d3.event.ctrlKey;
+	if (stop) window.d3.event.stopImmediatePropagation();
+    }
 
     var dragStart = layout.drag().on('dragstart.d3adaptor');
     var dragEnd = layout.drag().on('dragend.d3adaptor');

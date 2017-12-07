@@ -9,13 +9,17 @@
 #include <string>
 #include <iostream>
 #if defined(OS_WIN)
-#include <ShellAPI.h>
+	#include <ShellAPI.h>
 #endif
 #if defined(OS_MACOSX)
-#include <ApplicationServices/ApplicationServices.h>
-#import <Carbon/Carbon.h>
+	#include <ApplicationServices/ApplicationServices.h>
+	#import <Carbon/Carbon.h>
 #endif
-
+#if defined(OS_LINUX)
+	#include <X11/Xlib.h>
+	#include <X11/Xutil.h>
+	#include <thread>
+#endif
 #include "include/base/cef_bind.h"
 #include "include/cef_app.h"
 #include "include/views/cef_browser_view.h"
@@ -106,8 +110,8 @@ INT_PTR CALLBACK AboutDlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 bool PyNodeHandler::OnContextMenuCommand(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, int command_id, CefContextMenuHandler::EventFlags event_flags) {
 	if (command_id == ID_CONTEXT_MENU_ABOUT_PYNODE) {
 #if defined(OS_WIN)
-		CreateDialog(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_ABOUT_DIALOG), browser->GetHost()->GetWindowHandle(), AboutDlgProc);
-		return true;
+	CreateDialog(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_ABOUT_DIALOG), browser->GetHost()->GetWindowHandle(), AboutDlgProc);
+	return true;
 #endif
 #if defined(OS_MACOSX)
         CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateCombinedSessionState);
@@ -120,6 +124,54 @@ bool PyNodeHandler::OnContextMenuCommand(CefRefPtr<CefBrowser> browser, CefRefPt
         CFRelease(aboutCommandDown);
         CFRelease(source);
         return true;
+#endif
+#if defined(OS_LINUX)
+	
+std::thread t([](){
+	Display *dpy = XOpenDisplay(NULL);
+	int blackColor = BlackPixel(dpy, DefaultScreen(dpy));
+	int whiteColor = WhitePixel(dpy, DefaultScreen(dpy));
+	Screen* screen = DefaultScreenOfDisplay(dpy);
+	int windowWidth = 210;
+	int windowHeight = 100;
+	int windowX = (screen->width / 2) - (windowWidth / 2);
+	int windowY = (screen->height / 2) - (windowHeight / 2);
+	Window w = XCreateSimpleWindow(dpy, DefaultRootWindow(dpy), windowX, windowY, 
+				windowWidth, windowHeight, 1, blackColor, whiteColor);
+	XMapWindow(dpy, w);
+	GC gc = XCreateGC(dpy, w, 0, 0);
+	XSelectInput(dpy, w, ExposureMask | KeyPressMask);
+	
+	XSizeHints wmsize;
+	wmsize.flags = USPosition | PMinSize | PMaxSize;
+	wmsize.x = windowX; wmsize.y = windowY;
+	wmsize.min_width = windowWidth; wmsize.min_height = windowHeight;
+	wmsize.max_width = windowWidth; wmsize.max_height = windowHeight;
+	XSetWMNormalHints(dpy, w, &wmsize);
+	
+	XStoreName(dpy, w, "About PyNode");
+	
+	Atom WM_DELETE_WINDOW = XInternAtom(dpy, "WM_DELETE_WINDOW", False); 
+	XSetWMProtocols(dpy, w, &WM_DELETE_WINDOW, 1);
+	XEvent e;
+	const char *msg1 = "About PyNode";
+	const char *msg2 = "Copyright \xa9 Alex Socha 2017";
+	const char *msg3 = "http://www.alexsocha.com/pynode";
+	while (1) {
+		XNextEvent(dpy, &e);
+		if (e.type == Expose) {
+			XDrawString(dpy, w, gc, 10, 30, msg1, strlen(msg1));
+			XDrawString(dpy, w, gc, 10, 50, msg2, strlen(msg2));
+			XDrawString(dpy, w, gc, 10, 70, msg3, strlen(msg3));
+		}
+		else if (e.type == KeyPress)
+			break;
+		else if (e.type == ClientMessage)
+			break;
+	}
+	XCloseDisplay(dpy);
+    });
+    t.detach();
 #endif
     }
 	return false;
