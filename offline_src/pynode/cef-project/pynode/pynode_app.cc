@@ -12,10 +12,13 @@
 #include <thread>
 
 #if defined(OS_MACOSX)
-#include <ApplicationServices/ApplicationServices.h>
+	#include <ApplicationServices/ApplicationServices.h>
 #endif
 #if defined(OS_WIN)
-#include <windows.h>
+	#include <windows.h>
+#endif
+#if defined(OS_LINUX)
+	#include <X11/Xlib.h>
 #endif
 
 #include "pynode_handler.h"
@@ -109,19 +112,21 @@ void PyNodeApp::OnContextInitialized()
 	
 #if defined(OS_MACOSX)
 	char buffer[PATH_MAX + 1];
-	realpath(path.ToString().c_str(), buffer);
-	absulote_path = buffer;
+	absulote_path = realpath(path.ToString().c_str(), buffer);
 #endif
 #if defined(OS_WIN)
 	wchar_t buffer[MAX_PATH + 1];
 	GetFullPathName(path.c_str(), 234, buffer, NULL);
 	absulote_path = buffer;
 #endif
+#if defined(OS_LINUX)
+	char buffer[PATH_MAX + 1];
+	absulote_path = realpath(path.ToString().c_str(), buffer);
+#endif
 	CefString url = "file://" + absulote_path.ToString();
-
 	CefWindowInfo window_info;
 	int window_width = 600, window_height = 600;
-
+	
 #if defined(OS_MACOSX)
 	window_info.width = window_width;
 	window_info.height = window_height;
@@ -135,8 +140,17 @@ void PyNodeApp::OnContextInitialized()
 	window_info.height = window_height;
 	window_info.x = (GetSystemMetrics(SM_CXSCREEN) / 2) - (window_width / 2);
 	window_info.y = (GetSystemMetrics(SM_CYSCREEN) / 2) - (window_height / 2);
-
 #endif
+
+#if defined(OS_LINUX)
+	window_info.width = window_width;
+	window_info.height = window_height;
+	Display* disp = XOpenDisplay(NULL);
+	Screen* screen = DefaultScreenOfDisplay(disp);
+	window_info.x = (screen->width / 2) - (window_width / 2);
+	window_info.y = (screen->height / 2) - (window_height / 2);
+#endif
+	
 	CefBrowserHost::CreateBrowser(window_info, handler, url, browser_settings, NULL);
 
 	std::thread monitor_thread(MonitorPython, "");
