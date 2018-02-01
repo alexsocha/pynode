@@ -1,9 +1,10 @@
 # PyNode: Graph Theory Visualizer
 <a href="http://www.alexsocha.com/pynode"><img src="http://www.alexsocha.com/images/pynode/logo.png" align="left" hspace="10" vspace="6" width="100px" height="100px"></a>
-**PyNode** is a Python library for visualizing Graph Theory. It can be used to develop algorithm prototypes, or to demonstrate how algorithms work in a visual, interactive way. This is source for the online version, originally published <a href="http://www.alexsocha.com/pynode">here</a>.
+**PyNode** is a Python library for visualizing Graph Theory. It can be used to develop algorithm prototypes, or to demonstrate how algorithms work in a visual, interactive way. It is available in both an online version (current directory) and offline version (<a href="https://github.com/alexsocha/pynode/tree/master/offline_src">/offline_src</a>). The official website can be found <a href="http://www.alexsocha.com/pynode">here</a>.
 <br><br>
 
 ## How it works
+### Online version
 * When the 'Play' button is pressed, the Python code written in the editor (provided by <a href="https://ace.c9.io/#nav=about">Ace</a>) is transpiled to JavaScript (using <a href="https://github.com/mauriciopoppe/greuler">Brython</a>).
 * The code is then executed instantaneously, and all API calls are added to a queue, ready to be executed sequentially.
 * The API calls trigger visual animations (using a modified version of <a href="https://github.com/maurizzzio/greuler">Greuler</a>, built on <a href="https://github.com/d3/d3">D3</a> and <a href="https://github.com/tgdwyer/WebCola">WebCola</a>).
@@ -24,10 +25,15 @@
     * **/greuler** - The (modified) <a href="https://github.com/maurizzzio/greuler">Greuler API</a>.
     * **/cola** - The <a href="https://github.com/tgdwyer/WebCola">WebCola API</a>.
     * **/d3** - The <a href="https://github.com/d3/d3">D3 API</a>.
-* **offline_src/** - Contains the source code for the offline version of PyNode.
+* **offline_src/** - Contains the source code for the offline version of PyNode. Further details are provided within the directory.
 * **offline_downloads/** - Contains packaged downloads for the offline version.
     * **latest_version.zip** - Contains the latest version of the Python and JavaScript code used by the offline version, allowing for automatic updates.
     * **latest_version.txt** - Indicates the current version number.
-    * **pynode_win64.zip, pynode_macosx.zip, etc** - Contains the fully packaged offline versions of PyNode for various operating systems.
+    * **pynode_win64.zip, pynode_macosx.zip, etc.** - Contains the fully packaged offline versions of PyNode for various operating systems.
     
 _\* These files should be kept identical between the online and offline versions._
+
+## Publishing
+All pull requests and changes should be made to the master branch. Once thoroughly tested, changes in the master branch should be pushed to the gh-pages branch, making the website available at <a href="https://alexsocha.github.io/pynode/">alexsocha.github.io/pynode</a>.
+
+Once every hour, the changes made to the gh-pages website will be automatically published to <a href="http://www.alexsocha.com/pynode">www.alexsocha.com/pynode</a>.
