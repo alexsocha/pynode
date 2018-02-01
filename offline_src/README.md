@@ -31,7 +31,7 @@ begin_pynode(run)
     * **communicate.py** - Opens the C++ application, and communicates information through standard input, while monitoring output on a separate thread.
     * **update.py** - Downloads and unpackages updates when available.
     * **launcher.py** - Provides basic functions for initializing PyNode (e.g. begin_pynode).
-    * **version.txt** - Specifies the current version of the src folder. Updates will take place when a version with a greater number is made available.
+    * **version.txt** - Specifies the current version of the src folder.
     * **/html** - Contains all HTML, JavaScript and CSS files.
       * **pynode_output.html** - The PyNode interface.
       * **/css** - Contains custom fonts and the main style sheet.
@@ -48,7 +48,7 @@ begin_pynode(run)
 ### Entire project
 If changes are made to the entire project (including the CEF applications), the entire directory should be packaged into separate zip files for each operating system put into <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads">../offline_downloads</a> (use the current versions located there as examples).
 If files in the /pynode/src folder have been changed, follow the steps in the next section.
-### PyNode files (pynode/src)
+### PyNode files (/pynode/src)
 If changes are made to the main PyNode files, located in the <a href="https://github.com/alexsocha/pynode/tree/master/offline_src/pynode/src">/pynode/src</a> folder:
 1. The version number in <a href="https://github.com/alexsocha/pynode/blob/master/offline_src/pynode/src/version.txt">/pynode/src/version.txt</a> should be incremented. 
 2. The contents of this folder should be packaged into a zip file named "latest_src.zip" and put into the <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads">../offline_downloads</a> directory. 
