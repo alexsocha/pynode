@@ -1,11 +1,11 @@
-## How it works
-### Offline version
+## How It Works
+### Offline Version
 * The main Python code interacts with the custom-designed PyNode GraphLib API, which provides all of the available Graph Theory functions.
 * Python then runs pynode.exe/.app, which provides the main PyNode interface window, and communicates all changes made to the graph through standard input/output. The interface application is built in C++, using the <a href="https://bitbucket.org/chromiumembedded/cef">Chromium Embedded Framework.</a>
 * The application is responsible for displaying the html interface, and running all associated JavaScript files. PyNode uses a modified version of the <a href="https://github.com/maurizzzio/greuler">Greuler API</a> for visualizing the graph, which itself uses <a href="https://github.com/tgdwyer/WebCola">WebCola</a> for layout calculation, and <a h href="https://github.com/d3/d3">D3</a> for graphics.
 * All events are then handled within JavaScript. When required, information is communicated back to C++, and then back to Python.
 
-## Project structure
+## Project Structure
 * **demo.py** - A basic example of a PyNode script, and the entry point for the project. It should have the following structure:
 ```Python
 from pynode.main import *
