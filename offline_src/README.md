@@ -1,9 +1,5 @@
-# PyNode: Graph Theory Visualizer (Offline Version)
-<a href="http://www.alexsocha.com/pynode"><img src="http://www.alexsocha.com/images/pynode/logo.png" align="left" hspace="10" vspace="6" width="100px" height="100px"></a>
-**PyNode** is a Python library for visualizing Graph Theory. It can be used to develop algorithm prototypes, or to demonstrate how algorithms work in a visual, interactive way. This is source for the offline version; the online version can be found <a href="http://www.alexsocha.com/pynode">here</a>.
-<br><br>
-
 ## How it works
+### Offline version
 * The main Python code interacts with the custom-designed PyNode GraphLib API, which provides all of the available Graph Theory functions.
 * Python then runs pynode.exe/.app, which provides the main PyNode interface window, and communicates all changes made to the graph through standard input/output. The interface application is built in C++, using the <a href="https://bitbucket.org/chromiumembedded/cef">Chromium Embedded Framework.</a>
 * The application is responsible for displaying the html interface, and running all associated JavaScript files. PyNode uses a modified version of the <a href="https://github.com/maurizzzio/greuler">Greuler API</a> for visualizing the graph, which itself uses <a href="https://github.com/tgdwyer/WebCola">WebCola</a> for layout calculation, and <a h href="https://github.com/d3/d3">D3</a> for graphics.
@@ -21,15 +17,16 @@ begin_pynode(run)
   * **main.py** - Imports all relevant Python functions, and installs updates before the rest of the code is run
   * **autoupdate.txt** - Can be used to turn off automatic updating
   * **/cef** - Contains the final build of the C++ application (doesn't update automatically). Note that the contents of this folder are not available in this repository due to their large size and OS dependence. Download them <a href="http://www.alexsocha.com/pynode#download">here</a>.
-    * **os.txt** - Provides the operating system of the PyNode distribution (win64/win32/macosx), allowing the correct version of the application to be run.
+    * **os.txt** - Indicates the operating system of the PyNode distribution (win64/win32/macosx/linux), allowing the correct version of the application to be run.
     * **/win64** - Binaries for 64-bit Windows.
     * **/win32** - Binaries for 32-bit Windows.
     * **/macosx** - Binaries for macOS.
+    * **/linux** - Binaries for Linux.
   * **/cef-project** - Contains the files used for developing the C++ application. Based on the CEF project found <a href="https://bitbucket.org/chromiumembedded/cef-project">here</a>. This folder if for development only.
     * **/pynode** - Contains all C++ files, for both Windows and macOS, used in the application.
-    * **/build** - Contains scripts (build_win64.bat, build_win32.bat, build_macosx.bat) which automatically generate the project for each operating system. Once run, open build/cef.sln and build the project with Visual Studio 2015 (Update 3) for Windows, or open build/cef.xcodeproj and build the project with Xcode for macOS (Note that C++11 is required, and may need to be manually specified in Xcode).
+    * **/build** - Contains scripts (build_win64.bat, build_win32.bat, build_macosx.sh, build_linux.sh) which automatically generate the project for each operating system. Once run, open build/cef.sln and build the project with Visual Studio 2015 (Update 3) for Windows, or open build/cef.xcodeproj and build the project with Xcode for macOS (Note that C++11 is required, and may need to be manually specified in Xcode). No additional step is required for Linux.
   * **/src** - Contains the main Python/HTML/JavaScript code, and will be overridden when an update is available.
-    * **pynode_graphlib.py** - Contains the PyNode Graphlib API, which provides all Graph Theory-related functions. NOTE: This file should be compatible with the online version of PyNode (<a href="http://www.alexsocha.com/pynode_graphlib.py">here</a>).
+    * **pynode_graphlib.py** - Contains the PyNode Graphlib API, which provides all Graph Theory-related functions.
     * **pynode_core.py** - Handles the internal functions of PyNode Graphlib API, and allows the pynode_graphlib.py file to be compatible with both the offline and online versions of PyNode by implementing functionality which would otherwise be unavailable (e.g. the Timer class).
     * **communicate.py** - Opens the C++ application, and communicates information through standard input, while monitoring output on a separate thread.
     * **update.py** - Downloads and unpackages updates when available.
@@ -46,3 +43,16 @@ begin_pynode(run)
         * **/greuler** - The (modified) <a href="https://github.com/maurizzzio/greuler">Greuler API</a>.
         * **/cola** - The <a href="https://github.com/tgdwyer/WebCola">WebCola API</a>.
         * **/d3** - The <a href="https://github.com/d3/d3">D3 API</a>.
+
+## Publishing
+### Entire project
+If changes are made to the entire project (including the CEF applications), the entire directory should be packaged into separate zip files for each operating system put into <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads">../offline_downloads</a> (use the current versions located there as examples).
+If files in the /pynode/src folder have been changed, follow the steps in the next section.
+### PyNode files (pynode/src)
+If changes are made to the main PyNode files, located in the <a href="https://github.com/alexsocha/pynode/tree/master/offline_src/pynode/src">/pynode/src</a> folder:
+1. The version number in <a href="https://github.com/alexsocha/pynode/blob/master/offline_src/pynode/src/version.txt">/pynode/src/version.txt</a> should be incremented. 
+2. The contents of this folder should be packaged into a zip file named "latest_src.zip" and put into the <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads">../offline_downloads</a> directory. 
+3. The version number in <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads/latest_version.txt">../offline_downloads/latest_version.txt</a> should be set to the latest version (to allow automatic updating).
+### Final step
+As with the online version, once all changes have been pushed to the master branch and thoroughly tested, the gh-pages branch should be updated.
+
