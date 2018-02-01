@@ -31,9 +31,9 @@
     * **latest_version.txt** - Indicates the current version number.
     * **pynode_win64.zip, pynode_macosx.zip, etc.** - Contains the fully packaged offline versions of PyNode for various operating systems.
     
-_\* These files should be kept identical between the online and offline versions._
+_\* These files should be kept in sync between the online and offline versions._
 
 ## Publishing
-All pull requests and changes should be made to the master branch. Once thoroughly tested, changes in the master branch should be pushed to the gh-pages branch, making the website available at <a href="https://alexsocha.github.io/pynode/">alexsocha.github.io/pynode</a>.
+All pull requests and changes should be made to the master branch. Once thoroughly tested, changes in the master branch should be pushed to the gh-pages branch, and can be viewed at <a href="https://alexsocha.github.io/pynode/">alexsocha.github.io/pynode</a>.
 
-Once every hour, the changes made to the gh-pages website will be automatically published to <a href="http://www.alexsocha.com/pynode">www.alexsocha.com/pynode</a>.
+Once every hour, changes made to the gh-pages website will be automatically published to <a href="http://www.alexsocha.com/pynode">www.alexsocha.com/pynode</a>.
