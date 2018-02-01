@@ -2,19 +2,18 @@
 <html>
 <head>
     <title>PyNode</title>
-    <meta name="description" content="Interactive online graph theory.">
+    <meta name="description" content="Interactive online Graph Theory.">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--<link href="css/style.css" rel="stylesheet" type="text/css">-->
-    <link href="css/style.css?version=0.9.6" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Oswald|Inconsolata" rel="stylesheet">
+    <link href="css/style.css?version=0.9.7" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script src="js/pynode/resize.js?version=0.9.1"></script>
-    <script src="js/pynode/d3_controls.js?version=0.9.1"></script>
-    <script src="js/pynode/graph_api.js?version=0.9.1"></script>
-    <script src="js/pynode/d3/d3.v3.min.js?version=0.9.1"></script>
-    <script src="js/pynode/cola/cola.v3.js?version=0.9.1"></script>
-    <script src="js/pynode/greuler/greuler.js?version=0.9.5"></script>
+    <script src="js/pynode/resize.js?version=0.9.7"></script>
+    <script src="js/pynode/d3_controls.js?version=0.9.7"></script>
+    <script src="js/pynode/graph_api.js?version=0.9.7"></script>
+    <script src="js/pynode/d3/d3.v3.min.js?version=0.9.7"></script>
+    <script src="js/pynode/cola/cola.v3.js?version=0.9.7"></script>
+    <script src="js/pynode/greuler/greuler.js?version=0.9.7"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script>
         var editor_exists = false;
         var pynode_output;
@@ -117,8 +116,8 @@
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
             a = s.createElement(o),
                 m = s.getElementsByTagName(o)[0];
             a.async = 1;
@@ -137,11 +136,16 @@
     <div class="pageWholeWrapper">
         <div class="pageTopWrapper">
             <div class="pageTop">
+                <div class="pynodeGithubStar">
+                    <!-- Place this tag where you want the button to render. -->
+                    <a class="github-button" href="https://github.com/alexsocha/pynode" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star alexsocha/pynode on GitHub">Star</a>
+                </div>
                 <div class="pynodeLogo"><img src="images/pynode/logo.png" width="120" height="120"></div>
                 <div class="pynodeTitle">PyNode</div>
                 <div class="pynodeSubtitle">
                     <h3>Graph Theory Visualiser</h3>
                 </div>
+
                 <div class="pynodeDescription">
                     <p>PyNode allows you to create, animate and display graphs with a simple python interface, all
                         within your browser. An offline version is available <a href="#download">here</a>. Try the
@@ -551,29 +555,31 @@
                 <p>&nbsp;</p>
                 <p>Download the offline version of PyNode below.</p>
                 <p>&nbsp;</p>
+                <p>&nbsp;</p>
                 <div class="pynodeDownloadBox">
                     <div class="pynodeDownloadBoxIcon"><img src="images/pynode/download/windows.svg" width="45"
                                                             height="45"></div>
                     <div class="pynodeDownloadBoxTextWin">
-                        <a href="/offline_downloads/pynode_win64.zip">Download PyNode for Windows 64-bit x64</a>
+                        <a href="offline_downloads/pynode_win64.zip">Download PyNode for Windows 64-bit</a>
                         <p class="pageTextGap">&nbsp</p>
-                        <a href="/offline_downloads/pynode_win32.zip">Download PyNode for Windows 32-bit x86</a>
+                        <a href="offline_downloads/pynode_win32.zip">Download PyNode for Windows 32-bit</a>
                     </div>
                 </div>
                 <div class="pynodeDownloadBox">
                     <div class="pynodeDownloadBoxIcon"><img src="images/pynode/download/mac.svg" width="45" height="45">
                     </div>
                     <div class="pynodeDownloadBoxTextMac">
-                        <a href="/offline_downloads/pynode_macosx.zip">Download PyNode for macOS</a>
+                        <a href="offline_downloads/pynode_macosx.zip">Download PyNode for macOS</a>
                     </div>
                 </div>
                 <div class="pynodeDownloadBoxLinux">
                     <div class="pynodeDownloadBoxIconLinux"><img src="images/pynode/download/linux.svg" width="70" height="70">
                     </div>
-                    <div class="pynodeDownloadBoxTextMac">
-                        <a href="/offline_downloads/pynode_linux.zip">Download PyNode for Linux</a>
+                    <div class="pynodeDownloadBoxTextLinux">
+                        <a href="offline_downloads/pynode_linux.zip">Download PyNode for Linux</a>
                     </div>
                 </div>
+                <p>&nbsp;</p>
                 <p>Once downloaded, unzip the archive and run demo.py.</p>
             </div>
             <div class="pageWhole">
@@ -610,7 +616,7 @@
         </div>
     </div>
     <div class="pageInfoWrapper">
-        <p class="footerText">Copyright &#169 Alex Socha 2017</p>
+        <p class="footerText">Copyright &#169 Alex Socha <script language="javascript" type="text/javascript">var today = new Date(); var year = today.getFullYear(); document.write(year)</script></p>
     </div>
 </div>
 <script src="js/pynode/ace/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -723,14 +729,11 @@
 <script type="text/python3" id="tests_editor">
 	import pynode_core
 	from browser import window, document, alert
-	
+
 	document["run"].bind("click", pynode_core.save_code)
 	document["run"].bind("click", pynode_core.button_play)
 	document["stop"].bind("click", pynode_core.button_stop)
 	document["restart"].bind("click", pynode_core.button_restart)
-
-
-
 </script>
 <script>
     document.getElementById("run").style.backgroundColor = "#6E6E6E";
@@ -760,5 +763,8 @@
         }
     };
 </script>
+<!-- Relevant links that are not directly referenced. Used for web crawling. -->
+<a hidden style="display:none" href="offline_downloads/latest_src.zip">&nbsp</a>
+<a hidden style="display:none" href="offline_downloads/latest_version.txt">&nbsp</a>
 </body>
 </html>

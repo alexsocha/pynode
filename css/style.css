@@ -695,6 +695,11 @@ body.pynode .pageBottomWrapper {
     position: relative;
 }
 
+body.pynode .pynodeGithubStar {
+    float: right;
+    height: 50px;
+}
+
 body.pynode .pynodeLogo {
     width: 135px;
     height: 130px;
