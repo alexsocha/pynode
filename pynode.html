@@ -133,6 +133,7 @@
 
 <body class="pynode" onload="resize();brython({debug:1})" onresize="resize()">
 <div class="pynodeContainer">
+    <!--#include virtual="global_html/nav_bar.html"-->
     <div class="pageWholeWrapper">
         <div class="pageTopWrapper">
             <div class="pageTop">
@@ -729,7 +730,7 @@
 <script type="text/python3" id="tests_editor">
 	import pynode_core
 	from browser import window, document, alert
-	
+
 	document["run"].bind("click", pynode_core.save_code)
 	document["run"].bind("click", pynode_core.button_play)
 	document["stop"].bind("click", pynode_core.button_stop)
