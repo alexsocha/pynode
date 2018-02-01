@@ -13,10 +13,11 @@ def run():
     # User-created PyNode script, called when the 'Play' button is pressed
 begin_pynode(run)
 ```
-* **/pynode** - The main folder for the PyNode library
+* **/pynode** - The main folder for the PyNode library.
   * **main.py** - Imports all relevant Python functions, and installs updates before the rest of the code is run
-  * **autoupdate.txt** - Can be used to turn off automatic updating
-  * **/cef** - Contains the final build of the C++ application (doesn't update automatically). Note that the contents of this folder are not available in this repository due to their large size and OS dependence. Download them <a href="http://www.alexsocha.com/pynode#download">here</a>.
+  * **autoupdate.txt** - Can be used to turn off automatic updating.
+### CEF Files
+  * **/cef** - Contains the final build of the C++ application. Note that the contents of this folder are not available in this repository due to their large size and OS dependence. Download them <a href="http://www.alexsocha.com/pynode#download">here</a>.
     * **os.txt** - Indicates the operating system of the PyNode distribution (win64/win32/macosx/linux), allowing the correct version of the application to be run.
     * **/win64** - Binaries for 64-bit Windows.
     * **/win32** - Binaries for 32-bit Windows.
@@ -25,6 +26,7 @@ begin_pynode(run)
   * **/cef-project** - Contains the files used for developing the C++ application. Based on the CEF project found <a href="https://bitbucket.org/chromiumembedded/cef-project">here</a>. This folder if for development only.
     * **/pynode** - Contains all C++ files, for both Windows and macOS, used in the application.
     * **/build** - Contains scripts (build_win64.bat, build_win32.bat, build_macosx.sh, build_linux.sh) which automatically generate the project for each operating system. Once run, open build/cef.sln and build the project with Visual Studio 2015 (Update 3) for Windows, or open build/cef.xcodeproj and build the project with Xcode for macOS (Note that C++11 is required, and may need to be manually specified in Xcode). No additional step is required for Linux.
+### PyNode Files
   * **/src** - Contains the main Python/HTML/JavaScript code, and will be overridden when an update is available.
     * **pynode_graphlib.py** - Contains the PyNode Graphlib API, which provides all Graph Theory-related functions.
     * **pynode_core.py** - Handles the internal functions of PyNode Graphlib API, and allows the pynode_graphlib.py file to be compatible with both the offline and online versions of PyNode by implementing functionality which would otherwise be unavailable (e.g. the Timer class).
@@ -45,14 +47,14 @@ begin_pynode(run)
         * **/d3** - The <a href="https://github.com/d3/d3">D3 API</a>.
 
 ## Publishing
-### Entire project
+### Entire Project
 If changes are made to the entire project (including the CEF applications), the entire directory should be packaged into separate zip files for each operating system put into <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads">../offline_downloads</a> (use the current versions located there as examples).
 If files in the /pynode/src folder have been changed, follow the steps in the next section.
-### PyNode files (/pynode/src)
+### PyNode Files (/pynode/src)
 If changes are made to the main PyNode files, located in the <a href="https://github.com/alexsocha/pynode/tree/master/offline_src/pynode/src">/pynode/src</a> folder:
 1. The version number in <a href="https://github.com/alexsocha/pynode/blob/master/offline_src/pynode/src/version.txt">/pynode/src/version.txt</a> should be incremented. 
 2. The contents of this folder should be packaged into a zip file named "latest_src.zip" and put into the <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads">../offline_downloads</a> directory. 
 3. The version number in <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads/latest_version.txt">../offline_downloads/latest_version.txt</a> should be set to the latest version (to allow automatic updating).
-### Final step
+### Final Step
 As with the online version, once all changes have been pushed to the master branch and thoroughly tested, the gh-pages branch should be updated.
 
