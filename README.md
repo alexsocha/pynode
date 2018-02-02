@@ -17,7 +17,7 @@
 * **index.html** - Exact copy of pynode.html used for the <a href="https://alexsocha.github.io/pynode/">gh-pages website</a>.
 * **pynode_editor.html, pynode_console.html, pynode_output.html** - Detachable editor/console/output windows.
 * **pynode_pojects/** - Contains the Python code for the examples provided on the website.
-* **/css\*** - Contains custom fonts and the main style sheet.
+* **/css/pynode\*** - Contains custom fonts and the main style sheet.
 * **/images/pynode\*** - Contains all icons used in the interface.
 * **/js/pynode\*** - Contains all JavaScript code.
     * **graph_api.js** - Visually updates the graph, in parallel with the calls that were made to the GraphLib API.
