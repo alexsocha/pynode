@@ -149,7 +149,7 @@
 
                 <div class="pynodeDescription">
                     <p>PyNode allows you to create, animate and display graphs with a simple python interface, all
-                        within your browser. An offline version is available <a href="#download">here</a>. Try the
+                        within your browser. The offline version is available <a href="#download">here</a>. Try the
                         examples below, or write your own!</p>
                     <ul>
                         <li>
@@ -393,7 +393,7 @@
                                     class="codeInline">id</code> is <code class="codeInline">None</code>.</p>
                     </li>
                     <li>
-                        <p><code>node.id()</code> - Returns <code class="codeInline">id</code> of the node.</p>
+                        <p><code>node.id()</code> - Returns the <code class="codeInline">id</code> of the node.</p>
                     </li>
                     <li>
                         <p><code>node.set_value()</code>, <code>node.value()</code> - Sets/gets the <code
@@ -409,7 +409,7 @@
                     </li>
                     <li>
                         <p><code>node.degree()</code>, <code>node.indegree()</code>, <code>node.outdegree()</code> -
-                            Returns the node's degree/indegree/outdegree.</p>
+                            Returns the node's degree/indegree/ outdegree.</p>
                     </li>
                     <li>
                         <p><code>node.set_attribute(name, value)</code>, <code>node.attribute(name)</code> - Sets/gets
@@ -424,7 +424,7 @@
                         <p><code>node.set_position(x, y, relative=False)</code> - Sets the static position of the node.
                             <code class="codeInline">x</code> and <code class="codeInline">y</code> are pixel
                             coordinates, with <code class="codeInline">0</code>, <code class="codeInline">0</code> being
-                            the top-left corner of the ouput window (the standard size of the window is <code
+                            the top-left corner of the output window (the standard size of the window is <code
                                     class="codeInline">500x400</code>). If <code class="codeInline">relative</code> is
                             set, <code class="codeInline">x</code> and <code class="codeInline">y</code> should instead
                             be values between <code class="codeInline">0.0</code> and <code
@@ -434,8 +434,7 @@
                     <li>
                         <p><code>node.set_label(value, label_id=0)</code>, <code>node.label(label_id)</code> - Sets/gets
                             the value of additional labels for the node (Use <code class="codeInline">label_id=0</code>
-                            for the top-right label and <code class="codeInline">label_id=1</code> for the top left
-                            label).</p>
+                            for the top-right label and <code class="codeInline">label_id=1</code> for the top left-label).</p>
                     </li>
                     <li>
                         <p><code>node.set_size(size=12)</code>, <code>node.size()</code> - Sets/gets the radius of the
@@ -447,8 +446,8 @@
                     </li>
                     <li>
                         <p><code>node.set_value_style(size=13, color=Color.WHITE, outline=None)</code> - Sets the
-                            appearance of the node's value text (if <code class="codeInline">outline</code> is set to
-                            <code class="codeInline">None</code>, the node's current color will be used).</p>
+                            appearance of the node's value text (if no <code class="codeInline">outline</code> is specified,
+                            the node's background color will be used for the outline).</p>
                     </li>
                     <li>
                         <p><code>node.set_label_style(size=10, color=Color.GREY, outline=None, lable_id=None)</code> -
@@ -521,24 +520,24 @@
                 <h2>Miscellaneous</h2>
                 <ul>
                     <li>
-                        <p><code>Color(red, green, blue)</code> - Custom color for use in node and edge animations.</p>
+                        <p><code>Color(red, green, blue)</code> - Custom color for use in node and edge animations, using 0-255 values for each component.</p>
                     </li>
                     <li>
                         <p><code>Color.RED</code>, <code>Color.GREEN</code>, <code>Color.BLUE</code>,
                             <code>Color.YELLOW</code>, <code>Color.WHITE</code>, <code>Color.LIGHT_GREY</code>, <code>Color.GREY</code>,
                             <code>Color.DARK_GREY</code>, <code>Color.BLACK</code>, <code>Color.TRANSPARENT</code> -
-                            Predifined colors for use in node and edge animations.</p>
+                            Predefined colors for use in node and edge animations.</p>
                     </li>
                     <li>
-                        <p><code>pause(time)</code> - Delays the next visual event for the specified amount of
+                        <p><code>pause(time)</code> - Delays the next visual event for the specified number of
                             milliseconds (note that this does not pause code execution).</p>
                     </li>
                     <li>
                         <p><code>delay(func, time, args=[], repeat=False)</code> - Executes a function after the
-                            specified amount of milliseconds, with the optional <code class="codeInline">args</code>
-                            list of parameters. If <code class="codeInline">repeat</code> is set, the function execute
+                            specified number of milliseconds, with the optional <code class="codeInline">args</code>
+                            list of parameters. If <code class="codeInline">repeat</code> is set, the function will execute
                             continuously until the delay is cancelled. Returns a <code
-                                    class="codeInline">delay_id</code> referencing the delay.</p>
+                                    class="codeInline">delay_id</code> integer referencing the delay.</p>
                     </li>
                     <li>
                         <p><code>cancel_delay(delay_id)</code> - Cancels a scheduled delay event.</p>
@@ -586,7 +585,7 @@
             <div class="pageWhole">
                 <h1>About</h1>
                 <p>&nbsp;</p>
-                <p>Pynode was created and designed by Alex Socha, using the following technologies:</p>
+                <p>PyNode was created and designed by Alex Socha, using the following technologies:</p>
                 <ul>
                     <li>
                         <p><a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a> - Monash Adaptive
@@ -612,7 +611,7 @@
                         <p><a href="pynode_graphlib.py" target="_blank">GraphLib</a> - Alex Socha</p>
                     </li>
                 </ul>
-                <p>Copyright &#169 Alex Socha 2017</p>
+                <p>Copyright &#169 Alex Socha <script language="javascript" type="text/javascript">var today = new Date(); var year = today.getFullYear(); document.write(year)</script></p>
             </div>
         </div>
     </div>

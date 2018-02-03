@@ -29,12 +29,14 @@ while not pq.empty():
     node = pq.get()
     if seen[node]: continue
     seen[node] = True
-    node.highlight()
+    node.set_size(node.size()*1.5)
     node.set_color(Color.RED)
+    pause(400)
     # Update adjacent nodes
     for edge in node.outgoing_edges():
-        edge.traverse(node, keep_path=False)
-    pause(500)
+        edge.traverse(node, keep_path=True)
+    pause(750)
+    node.set_size(node.size()/1.5)
     for edge in node.outgoing_edges():
         target = edge.other_node(node)
         if not seen[target]:
@@ -47,11 +49,12 @@ while not pq.empty():
                 # Store the edge used to reach this node
                 target.set_attribute("path", edge)
                 pq.put(target)
-    pause(750)
+    pause(400)
 
-# Reset node color
+# Reset node and edge color
 pause(500)
 for node in graph.nodes(): node.set_color(Color.DARK_GREY)
+for edge in graph.edges(): edge.set_color(Color.LIGHT_GREY)
 pause(1000)
 
 # Select a random end node

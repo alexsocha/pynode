@@ -23,7 +23,8 @@ function update_instant_layout() {
     catch(err) { js_update_timer = set_timeout(update_instant_layout, 20); }
 }
 
-function js_update(layout=true) {
+function js_update(layout) {
+    if (typeof(layout) === 'undefined') layout = true;
     if (js_do_update) {
         try {
             if (layout) {
@@ -188,7 +189,9 @@ function js_node_set_label_style(node_id, style, label_id) {
 	}
 }
 
-function js_node_highlight(node_id, size=null, color=null) {
+function js_node_highlight(node_id, size, color) {
+    if (typeof(size) === 'undefined') size = null;
+    if (typeof(color) === 'undefined') color = null;
     if (greuler_instance.graph.hasNode({id: node_id})) {
         data = {};
         if (size !== null) data.size = size;
@@ -236,7 +239,9 @@ function js_edge_set_weight_style(edge_id, style) {
 	}
 }
 
-function js_edge_highlight(edge_id, width=null, color=null) {
+function js_edge_highlight(edge_id, width, color) {
+    if (typeof(width) === 'undefined') width = null;
+    if (typeof(color) === 'undefined') color = null;
     if (greuler_instance.graph.hasEdge({id: edge_id})) {
         data = {};
         if (width !== null) data.width = width;
@@ -255,4 +260,3 @@ function js_run_function(name, args) {
 	var data = JSON.parse(args);
 	window[name].apply(null, data);
 }
-

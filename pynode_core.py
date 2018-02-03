@@ -144,7 +144,7 @@ def reset(clear_console=True):
         PynodeCoreGlobals.GLOBAL_USER_ID = 0
         if clear_console: window.writeOutput("", False)
         pynode_graphlib.graph._reset()
-        js_clear()
+        window.js_clear()
         if PynodeCoreGlobals.event_timer is not None: timer.clear_timeout(PynodeCoreGlobals.event_timer)
         if PynodeCoreGlobals.update_timer is not None: timer.clear_timeout(PynodeCoreGlobals.update_timer)
         PynodeCoreGlobals.event_queue = [EventPause(100)]
