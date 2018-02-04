@@ -53,7 +53,7 @@ If files in the /pynode/src folder have been changed, follow the steps in the ne
 ### PyNode Files (/pynode/src)
 If changes are made to the main PyNode files, located in the <a href="https://github.com/alexsocha/pynode/tree/master/offline_src/pynode/src">/pynode/src</a> folder:
 1. The version number in <a href="https://github.com/alexsocha/pynode/blob/master/offline_src/pynode/src/version.txt">/pynode/src/version.txt</a> should be incremented. 
-2. The contents of this folder should be packaged into a zip file named "latest_src.zip" and put into the <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads">../offline_downloads</a> directory. 
+2. The contents of this folder should be packaged into a zip file named "latest_src.zip" and put into the <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads">../offline_downloads</a> directory. Optionally, the fully packaged distributions may also be updated.
 3. The version number in <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads/latest_version.txt">../offline_downloads/latest_version.txt</a> should be set to the latest version (to allow automatic updating).
 ### Final Step
 As with the online version, once all changes have been pushed to the master branch and thoroughly tested, the gh-pages branch should be updated.

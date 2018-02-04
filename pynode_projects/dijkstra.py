@@ -2,7 +2,7 @@
 import queue
 import random
 
-# Create a random graph
+# Generate a random graph
 NUM_NODES = 12
 NUM_EDGES = 15
 data = graph.random(NUM_NODES, NUM_EDGES)
@@ -75,7 +75,7 @@ while node is not start:
     node = edge.other_node(node)
     path.append((node, edge))
    
- # Animate the path
+# Animate the path
 for n, e in reversed(path):
     e.traverse(n, Color.GREEN)
     pause(500)

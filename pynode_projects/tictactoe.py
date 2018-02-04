@@ -1,3 +1,4 @@
+# Tic Tac Toe
 import random
 
 class GameData:
@@ -32,7 +33,7 @@ def win_sequence(grid, player):
     if grid[0][2] == player and grid[1][1] == player and grid[2][0] == player: return [(0,2),(1,1),(2,0)]
     return None
 
-# Finds all positions wich would result in a win
+# Finds all positions which would result in a win
 def get_wins(grid, player):
     positions = []
     for r in range(0, 3):
@@ -44,7 +45,7 @@ def get_wins(grid, player):
                 positions.append((r, c))
     return positions
 
-# Finds al positions which result in a 'fork' (2 or more potential winning positions)
+# Finds all positions which would result in a 'fork' (2 or more potential winning positions)
 def get_forks(grid, player):
     positions = []
     for r in range(0, 3):

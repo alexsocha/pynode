@@ -18,7 +18,7 @@ for element in random_graph:
     element.set_attribute("seen", False)
 graph.add_all(random_graph)
 
-# Use a priority queue finding the shortest edge
+# Use a priority queue to find the shortest edge
 pq = queue.PriorityQueue()
 pause(1000)
 
@@ -56,7 +56,7 @@ while not pq.empty():
     pause(1000)
     visit_node(e.target(visited_node))
 
-# Now all the edges are connected together :)
+# Now all the nodes are connected together :)
 for n in graph.nodes():
     heart = "❤"
     n.set_value(heart)
