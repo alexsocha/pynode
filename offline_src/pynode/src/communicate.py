@@ -37,7 +37,9 @@ def execute_run_function():
 
 def send_data(s):
     # Format the string correctly for JavaScript
-    s = s.replace("\\n", "\\\\n")
+    s = s.replace("\\", "\\\\")
+    s = s.replace("'", "\\'")
+    s = s.replace('"', '\\"')
     pynode_process.stdin.write(("pynode:" + s + "\n").encode())
     pynode_process.stdin.flush()
 
