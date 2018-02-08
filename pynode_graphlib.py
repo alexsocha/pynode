@@ -19,6 +19,10 @@ def cancel_delay(delay_id):
         if pynode_core.PynodeCoreGlobals.delay_type[delay_id] == 1: pynode_core.timer.clear_interval(delay_id)
         else: pynode_core.timer.clear_timeout(delay_id)
         del pynode_core.PynodeCoreGlobals.delay_type[delay_id]
+def clear_delays():
+    delay_ids = list(pynode_core.PynodeCoreGlobals.delay_type.keys())
+    for delay_id in delay_ids:
+        cancel_delay(delay_id)
 
 def print_debug(value):
     pynode_core.do_print(str(value) + "\n")
@@ -484,9 +488,11 @@ class Graph:
         self._has_edge_cache = {}
 
 def _exec_code(src):
-    namespace = globals()
+    namespace = locals()
     namespace["__name__"] = "__main__"
     exec(src, namespace, namespace)
 
-graph = Graph()
+def _execute_function(func, args):
+    func(*args)
 
+graph = Graph()

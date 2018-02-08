@@ -624,6 +624,7 @@
 <script>
     resize();
     var editor = ace.edit("editor");
+    editor.$blockScrolling = Infinity;
     editor_exists = true;
 
     function getCode() {

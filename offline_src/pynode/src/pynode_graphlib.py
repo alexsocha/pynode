@@ -491,9 +491,11 @@ class Graph:
         self._has_edge_cache = {}
 
 def _exec_code(src):
-    namespace = globals()
+    namespace = locals()
     namespace["__name__"] = "__main__"
     exec(src, namespace, namespace)
 
-graph = Graph()
+def _execute_function(func, args):
+    func(*args)
 
+graph = Graph()

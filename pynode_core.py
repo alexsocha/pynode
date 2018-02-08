@@ -134,7 +134,7 @@ def handle_exception(emptyPrint=True):
 
 def execute_function(func, args):
     try:
-        func(*args)
+        pynode_graphlib._execute_function(func, args)
     except Exception as exc:
         traceback.print_exc(file=sys.stderr)
         handle_exception(False)
@@ -166,7 +166,8 @@ def clear_button_run():
     document["runPlayLoad"].style.display = "none"
     document["runPause"].style.display = "none"
     document["runResume"].style.display = "none"
-    document["run"].unbind("click")
+    for event in document["run"].events("click"):
+        document["run"].unbind("click", event)
     document["run"].bind("click", save_code)
 
 def button_play(event):
