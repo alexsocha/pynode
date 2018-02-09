@@ -43,4 +43,5 @@ function clickNode(nodeId) {
 	if (clickListener !== undefined) {
 		clickListener(nodeId);
 	}
+    console.log("pynode:click:" + nodeId);
 }
