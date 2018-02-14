@@ -8,6 +8,7 @@
 function enable_drag_layout() {
 	if (greuler_instance.root !== undefined) {
 		greuler_instance.root.on("mousedown", mouse_down).call(window.d3.behavior.zoom().scaleExtent([0.4, 4.0]).on("zoom", pan_zoom));
+        updateContraints(false);
 	}
 }
 function mouse_down() {
