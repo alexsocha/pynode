@@ -36,7 +36,7 @@ def execute_run_function():
     except: traceback.print_exc(file=sys.stderr)
 
 def send_data(s):
-    # Format the string correctly for JavaScript
+    # Format string correctly before it is passed to JavaScript
     s = s.replace("\\", "\\\\")
     s = s.replace("'", "\\'")
     s = s.replace('"', '\\"')
@@ -102,6 +102,11 @@ def open_connection():
             pynode_process = subprocess.Popen([os.path.join(APP_DIR, "cef/win32/pynode.exe")], shell=False, cwd=APP_DIR, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         elif operating_system == "macosx":
             pynode_process = subprocess.Popen([os.path.join(APP_DIR, "cef/macosx/pynode.app/Contents/MacOS/pynode")], shell=False, cwd=APP_DIR, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            # Bring window to foreground
+            try:
+                DEVNULL = open(os.devnull, 'w')
+                subprocess.call(["/usr/bin/osascript -e 'tell app \"Finder\" to set frontmost of process \"PyNode\" to true'"], shell=True, stdout=DEVNULL, stderr=DEVNULL, close_fds=True)
+            except: pass
         elif operating_system == "linux":
             pynode_process = subprocess.Popen([os.path.join(APP_DIR, "cef/linux/pynode")], shell=False, cwd=APP_DIR, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         time.sleep(1)
