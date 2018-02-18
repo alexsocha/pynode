@@ -187,7 +187,7 @@ function refreshLayout() {
 }
 
 function dragNode(dragging, nodeId) {
-    if (dragging && !draggingNode) {
+    if (!dragging && draggingNode) {
         clickNode(nodeId);
     }
     draggingNode = dragging;
