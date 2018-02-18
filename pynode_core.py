@@ -163,6 +163,7 @@ def reset(clear_console=True):
         PynodeCoreGlobals.delay_type = {}
         PynodeCoreGlobals.positioning_counter = 0
         PynodeCoreGlobals.error = ""
+        PynodeCoreGlobals.click_listener_func = {"f": None}
         window.set_layout_type()
         window.registerClickListener(node_click)
         window.clickListenerFunc = None
