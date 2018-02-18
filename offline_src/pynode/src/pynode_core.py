@@ -55,9 +55,13 @@ class EventPause():
     def __init__(self, time):
         self.time = time
 
-def run_javascript_func(name, args=[]):
+def run_javascript_func(name, args=None):
     # Send the name of the JavaScript function, and a list of arguments as a JSON string
-    communicate.send_data(name + ":" + json.dumps(args))
+    communicate.send_data(name + ":" + json.dumps([] if args is None else args))
+
+def get_javascript_data(name, args=None):
+    new_args = [name, [] if args is None else args]
+    return communicate.send_data_with_response("js_return_data:", new_args)
 
 def add_event(event, source=None):
     if PynodeCoreGlobals.do_events:
@@ -68,6 +72,12 @@ def add_event(event, source=None):
             time.sleep(event.time / 1000.0)
         else:
             run_javascript_func(event.func, event.args)
+
+def get_data(event, source=None):
+    if source is not None:
+        if isinstance(source, pynode_graphlib.Node) and not pynode_graphlib.graph.has_node(source): return None
+        if isinstance(source, pynode_graphlib.Edge) and not pynode_graphlib.graph.has_edge(source): return None
+    return get_javascript_data(event.func, event.args)
 
 def execute_function(func, args):
     try: func(*args)

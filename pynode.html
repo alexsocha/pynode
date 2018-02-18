@@ -20,6 +20,7 @@
         var pynode_editor;
         var pynode_console;
         var enable_editor = true;
+
         function outputPopup(w, h) {
             var left = (screen.width / 2) - (w / 2);
             var top = (screen.height / 2) - (h / 2);
@@ -35,6 +36,7 @@
             }
             return false;
         }
+
         function editorPopup(w, h) {
             var left = (screen.width / 2) - (w / 2);
             var top = (screen.height / 2) - (h / 2);
@@ -50,6 +52,7 @@
             }
             return false;
         }
+
         function consolePopup(w, h) {
             var left = (screen.width / 2) - (w / 2);
             var top = (screen.height / 2) - (h / 2);
@@ -65,6 +68,7 @@
             }
             return false;
         }
+
         window.onbeforeunload = function () {
             if (pynode_output !== undefined) {
                 pynode_output.close();
@@ -138,7 +142,8 @@
         <div class="pageTopWrapper">
             <div class="pageTop">
                 <div class="pynodeGithubStar">
-                    <a class="github-button" href="https://github.com/alexsocha/pynode" data-icon="octicon-star" data-size="large" aria-label="Star alexsocha/pynode on GitHub">Star</a>
+                    <a class="github-button" href="https://github.com/alexsocha/pynode" data-icon="octicon-star"
+                       data-size="large" aria-label="Star alexsocha/pynode on GitHub">Star</a>
                 </div>
                 <div class="pynodeLogo"><img src="images/pynode/logo.png" width="120" height="120"></div>
                 <div class="pynodeTitle">PyNode</div>
@@ -422,18 +427,22 @@
                     <li>
                         <p><code>node.set_position(x, y, relative=False)</code> - Sets the static position of the node.
                             <code class="codeInline">x</code> and <code class="codeInline">y</code> are pixel
-                            coordinates, with <code class="codeInline">0</code>, <code class="codeInline">0</code> being
-                            the top-left corner of the output window (the standard size of the window is <code
-                                    class="codeInline">500x400</code>). If <code class="codeInline">relative</code> is
+                            coordinates, with (0, 0) being
+                            the top-left corner of the output window (the standard size of the window is 500x400). If
+                            <code class="codeInline">relative</code> is
                             set, <code class="codeInline">x</code> and <code class="codeInline">y</code> should instead
-                            be values between <code class="codeInline">0.0</code> and <code
-                                    class="codeInline">1.0</code>, specifying the node's position as a percentage of the
+                            be values between 0.0 and 1.0, specifying the node's position as a percentage of the
                             window size.</p>
+                    </li>
+                    <li>
+                        <p><code>node.position()</code> - Returns a tuple with the (x, y) coordinates of the node.
+                            Should be used in asynchronous function calls.
                     </li>
                     <li>
                         <p><code>node.set_label(value, label_id=0)</code>, <code>node.label(label_id)</code> - Sets/gets
                             the value of additional labels for the node (Use <code class="codeInline">label_id=0</code>
-                            for the top-right label and <code class="codeInline">label_id=1</code> for the top left-label).</p>
+                            for the top-right label and <code class="codeInline">label_id=1</code> for the top
+                            left-label).</p>
                     </li>
                     <li>
                         <p><code>node.set_size(size=12)</code>, <code>node.size()</code> - Sets/gets the radius of the
@@ -445,7 +454,8 @@
                     </li>
                     <li>
                         <p><code>node.set_value_style(size=13, color=Color.WHITE, outline=None)</code> - Sets the
-                            appearance of the node's value text (if no <code class="codeInline">outline</code> is specified,
+                            appearance of the node's value text (if no <code class="codeInline">outline</code> is
+                            specified,
                             the node's background color will be used for the outline).</p>
                     </li>
                     <li>
@@ -519,7 +529,8 @@
                 <h2>Miscellaneous</h2>
                 <ul>
                     <li>
-                        <p><code>Color(red, green, blue)</code> - Custom color for use in node and edge animations, using 0-255 values for each component.</p>
+                        <p><code>Color(red, green, blue)</code> - Custom color for use in node and edge animations,
+                            using 0-255 values for each component.</p>
                     </li>
                     <li>
                         <p><code>Color.RED</code>, <code>Color.GREEN</code>, <code>Color.BLUE</code>,
@@ -534,7 +545,8 @@
                     <li>
                         <p><code>delay(func, time, args=[], repeat=False)</code> - Executes a function after the
                             specified number of milliseconds, with the optional <code class="codeInline">args</code>
-                            list of parameters. If <code class="codeInline">repeat</code> is set, the function will execute
+                            list of parameters. If <code class="codeInline">repeat</code> is set, the function will
+                            execute
                             continuously until the delay is cancelled. Returns a <code
                                     class="codeInline">delay_id</code> integer referencing the delay.</p>
                     </li>
@@ -572,7 +584,8 @@
                     </div>
                 </div>
                 <div class="pynodeDownloadBoxLinux">
-                    <div class="pynodeDownloadBoxIconLinux"><img src="images/pynode/download/linux.svg" width="70" height="70">
+                    <div class="pynodeDownloadBoxIconLinux"><img src="images/pynode/download/linux.svg" width="70"
+                                                                 height="70">
                     </div>
                     <div class="pynodeDownloadBoxTextLinux">
                         <a href="offline_downloads/pynode_linux.zip">Download PyNode for Linux</a>
@@ -610,12 +623,20 @@
                         <p><a href="pynode_graphlib.py" target="_blank">GraphLib</a> - Alex Socha</p>
                     </li>
                 </ul>
-                <p>Copyright &#169 Alex Socha <script language="javascript" type="text/javascript">var today = new Date(); var year = today.getFullYear(); document.write(year)</script></p>
+                <p>Copyright &#169 Alex Socha
+                    <script language="javascript" type="text/javascript">var today = new Date();
+                    var year = today.getFullYear();
+                    document.write(year)</script>
+                </p>
             </div>
         </div>
     </div>
     <div class="pageInfoWrapper">
-        <p class="footerText">Copyright &#169 Alex Socha <script language="javascript" type="text/javascript">var today = new Date(); var year = today.getFullYear(); document.write(year)</script></p>
+        <p class="footerText">Copyright &#169 Alex Socha
+            <script language="javascript" type="text/javascript">var today = new Date();
+            var year = today.getFullYear();
+            document.write(year)</script>
+        </p>
     </div>
 </div>
 <script src="js/pynode/ace/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -630,14 +651,17 @@
     function getCode() {
         return editor.getValue();
     }
+
     function setCode(src) {
         if (enable_editor) {
             editor.setValue(src, -1);
         }
     }
+
     function saveCode() {
         localStorage.setItem("code", getCode())
     }
+
     function loadCode() {
         src = localStorage.getItem("code");
         if (src === null || src == "") {
@@ -647,6 +671,7 @@
             editor.setValue(src, -1);
         }
     }
+
     function openCode(name) {
         var client = new XMLHttpRequest();
         client.open("GET", "pynode_projects/" + name + ".py");
@@ -660,6 +685,7 @@
         };
         client.send();
     }
+
     if (read_storage) {
         loadCode();
     }
@@ -710,11 +736,13 @@
         })(file);
         reader.readAsText(file);
     }
+
     function userSaveCode() {
         var text = getCode();
         var blob = new Blob([text], {type: "text/plain;charset=utf-8;"});
         saveAs(blob, "project.pynode");
     }
+
     document.getElementById('file-input').addEventListener('change', userLoadCode, false);
 </script>
 <script type="text/javascript">
@@ -734,6 +762,9 @@
 	document["run"].bind("click", pynode_core.button_play)
 	document["stop"].bind("click", pynode_core.button_stop)
 	document["restart"].bind("click", pynode_core.button_restart)
+
+
+
 </script>
 <script>
     document.getElementById("run").style.backgroundColor = "#6E6E6E";

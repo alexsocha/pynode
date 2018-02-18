@@ -65,10 +65,10 @@ function updateLayout() {
             return;
         }
 
-        greuler_instance.graph.nodes[tlBoundaryIndex].x = 0;
-        greuler_instance.graph.nodes[tlBoundaryIndex].y = 0;
-        greuler_instance.graph.nodes[brBoundaryIndex].x = w;
-        greuler_instance.graph.nodes[brBoundaryIndex].y = h;
+        greuler_instance.graph.nodes[tlBoundaryIndex].x = 1;
+        greuler_instance.graph.nodes[tlBoundaryIndex].y = 1;
+        greuler_instance.graph.nodes[brBoundaryIndex].x = w - 1;
+        greuler_instance.graph.nodes[brBoundaryIndex].y = h - 1;
 
         var constraints = [];
         for (var i = 0; i < greuler_instance.graph.nodes.length; i++) {

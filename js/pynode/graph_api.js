@@ -125,7 +125,7 @@ function js_node_set_position(node_id, x, y, relative) {
         n = greuler_instance.graph.getNode({id: node_id});
         if (x === null || y === null) {
             n.fixed = false;
-            n.static = true;
+            n.static = false;
             return;
         }
         n.fixed = true;
@@ -137,8 +137,15 @@ function js_node_set_position(node_id, x, y, relative) {
     }
 }
 
-function js_node_get_position(node) {
-    // Not currently implemented
+function js_node_get_position(node_id) {
+    data = [null, null, null, null];
+    if (greuler_instance.graph.hasNode({"id": node_id})) {
+        data[0] = greuler_instance.graph.getNode({"id": node_id}).x;
+        data[1] = greuler_instance.graph.getNode({"id": node_id}).y;
+    }
+    data[2] = greuler_instance.options.data.size[0];
+    data[3] = greuler_instance.options.data.size[1];
+    return data;
 }
 
 function js_node_set_label(node_id, text, label_id) {
@@ -256,7 +263,17 @@ function js_edge_traverse(edge_id, initial_node_id, color, keep_path) {
     }
 }
 
+function js_return_data(name, response_id, args) {
+    var result = window[name].apply(null, args);
+    console.log("pynode:response:" + response_id + ":" + JSON.stringify(result));
+}
+
 function js_run_function(name, args) {
     var data = JSON.parse(args);
     window[name].apply(null, data);
+}
+
+function js_run_function_with_return(name, args) {
+    var data = JSON.parse(args);
+    return JSON.stringify(window[name].apply(null, data));
 }

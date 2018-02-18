@@ -5,112 +5,126 @@
 
 <html>
 <head>
-<title>PyNode</title>
-<meta name="description" content="Interactive online graph theory.">
-<link rel="stylesheet" href="css/style.css">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<script src="js/resize.js"></script>
-<script src="js/d3_controls.js"></script>
-<script src="js/d3/d3.v3.min.js"></script>
-<script src="js/cola/cola.v3.js"></script>
-<script src="js/greuler/greuler.js"></script>
-<script src="js/graph_api.js"></script>
+    <title>PyNode</title>
+    <meta name="description" content="Interactive online graph theory.">
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="js/resize.js"></script>
+    <script src="js/d3_controls.js"></script>
+    <script src="js/d3/d3.v3.min.js"></script>
+    <script src="js/cola/cola.v3.js"></script>
+    <script src="js/greuler/greuler.js"></script>
+    <script src="js/graph_api.js"></script>
 </head>
 
 <body class="pynode_output" onresize="output_resize()">
 <div class="pynodeOutputContainer">
-  <div class="outputPageWrapper">
-    <div class="outputWrapper">
-      <div class="appSectionTitle">
-        <div class="floatLeft">
-          <h3>PyNode</h3>
+    <div class="outputPageWrapper">
+        <div class="outputWrapper">
+            <div class="appSectionTitle">
+                <div class="floatLeft">
+                    <h3>PyNode</h3>
+                </div>
+                <div class="appSectionEnlarge">
+                    <h3><a href="http://www.alexsocha.com/pynode"><img src="images/pynode/controls/website.png"
+                                                                       width="20" height="20"></a></h3>
+                </div>
+            </div>
+            <div id="outputBox">
+                <div id="output"></div>
+            </div>
+            <div class="editorButtonBar">
+                <div id="run" class="editorButton">
+                    <div id="runPlay">
+                        <div class="editorButtonIcon"><img src="images/pynode/controls/play.png" width="20" height="20">
+                        </div>
+                        <h4>PLAY</h4>
+                    </div>
+                    <div id="runPlayLoad">
+                        <div class="editorButtonIcon"><img src="images/pynode/controls/loading.png" width="20"
+                                                           height="20"></div>
+                        <h4>LOADING</h4>
+                    </div>
+                    <div id="runPause">
+                        <div class="editorButtonIcon"><img src="images/pynode/controls/pause.png" width="20"
+                                                           height="20"></div>
+                        <h4>PAUSE</h4>
+                    </div>
+                    <div id="runResume">
+                        <div class="editorButtonIcon"><img src="images/pynode/controls/play.png" width="20" height="20">
+                        </div>
+                        <h4>RESUME</h4>
+                    </div>
+                </div>
+                <div class="buttonBarLayoutPanel">
+                    <div id="layout1">
+                        <div id="layout1On" class="layoutButtonOn" style="display: inherit"><img
+                                src="images/pynode/controls/layoutButton1.png" width="20" height="20"></div>
+                        <div id="layout1Off" class="layoutButtonOff" style="display: none"><img
+                                src="images/pynode/controls/layoutButton1.png" width="20" height="20"></div>
+                    </div>
+                    <div id="layout2">
+                        <div id="layout2On" class="layoutButtonOn" style="display: none"><img
+                                src="images/pynode/controls/layoutButton2.png" width="20" height="20"></div>
+                        <div id="layout2Off" class="layoutButtonOff" style="display: inherit"><img
+                                src="images/pynode/controls/layoutButton2.png" width="20" height="20"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="appSectionEnlarge">
-          <h3><a href="http://www.alexsocha.com/pynode"><img src="images/pynode/controls/website.png" width="20" height="20"></a></h3>
-        </div>
-      </div>
-      <div id="outputBox">
-        <div id="output"></div>
-      </div>
-      <div class="editorButtonBar">
-        <div id="run" class="editorButton">
-          <div id="runPlay">
-            <div class="editorButtonIcon"><img src="images/pynode/controls/play.png" width="20" height="20"></div>
-            <h4>PLAY</h4>
-          </div>
-          <div id="runPlayLoad">
-            <div class="editorButtonIcon"><img src="images/pynode/controls/loading.png" width="20" height="20"></div>
-            <h4>LOADING</h4>
-          </div>
-          <div id="runPause">
-            <div class="editorButtonIcon"><img src="images/pynode/controls/pause.png" width="20" height="20"></div>
-            <h4>PAUSE</h4>
-          </div>
-          <div id="runResume">
-            <div class="editorButtonIcon"><img src="images/pynode/controls/play.png" width="20" height="20"></div>
-            <h4>RESUME</h4>
-          </div>
-        </div>
-        <div class="buttonBarLayoutPanel">
-          <div id="layout1">
-            <div id="layout1On" class="layoutButtonOn" style="display: inherit"><img src="images/pynode/controls/layoutButton1.png" width="20" height="20"></div>
-            <div id="layout1Off" class="layoutButtonOff" style="display: none"><img src="images/pynode/controls/layoutButton1.png" width="20" height="20"></div>
-          </div>
-          <div id="layout2">
-            <div id="layout2On" class="layoutButtonOn" style="display: none"><img src="images/pynode/controls/layoutButton2.png" width="20" height="20"></div>
-            <div id="layout2Off" class="layoutButtonOff" style="display: inherit"><img src="images/pynode/controls/layoutButton2.png" width="20" height="20"></div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 <script>
-	function getCode() {
-		return window.opener.editor.getValue()
-	}
-</script> 
+    function getCode() {
+        return window.opener.editor.getValue()
+    }
+</script>
 <script type="text/javascript">
-	var greuler_instance = greuler({
-	  target: "#output",
-	  width: document.getElementById("outputBox").offsetWidth,
-	  height: document.getElementById("outputBox").offsetHeight,
-	}).update();
-	set_layout_type()
-</script> 
+    var greuler_instance = greuler({
+        target: "#output",
+        width: document.getElementById("outputBox").offsetWidth,
+        height: document.getElementById("outputBox").offsetHeight,
+    }).update();
+    set_layout_type()
+</script>
 <script>
-	running_script = false;
-	document.getElementById("run").style.backgroundColor = "#6E6E6E";
-	document.getElementById("run").style.cursor = "pointer";
-	document.getElementById("run").onclick = function () {
-		if (!running_script) {
-			running_script = true;
-			document.getElementById("run").style.backgroundColor = "#ACACAC"
-			document.getElementById("run").style.cursor = "auto"
-			console.log("pynode:run");
-		}
-	};
-	function end_running() {
-		document.getElementById("run").style.backgroundColor = "#6E6E6E";
-		document.getElementById("run").style.cursor = "pointer"
-		running_script = false;
-	}
+    running_script = false;
+    document.getElementById("run").style.backgroundColor = "#6E6E6E";
+    document.getElementById("run").style.cursor = "pointer";
+    document.getElementById("run").onclick = function () {
+        if (!running_script) {
+            running_script = true;
+            document.getElementById("run").style.backgroundColor = "#ACACAC"
+            document.getElementById("run").style.cursor = "auto"
+            console.log("pynode:run");
+        }
+    };
 
-	document.getElementById("layout1").onclick = function () {
-		if (document.getElementById("layout1On").style.display === "none") {
-			document.getElementById("layout1On").style.display = "inherit"; document.getElementById("layout1Off").style.display = "none";
-			document.getElementById("layout2On").style.display = "none"; document.getElementById("layout2Off").style.display = "inherit";
-			set_layout_type()
-		}
-	};
-	document.getElementById("layout2").onclick = function () {
-		if (document.getElementById("layout2On").style.display === "none") {
-			document.getElementById("layout2On").style.display = "inherit"; document.getElementById("layout2Off").style.display = "none";
-			document.getElementById("layout1On").style.display = "none"; document.getElementById("layout1Off").style.display = "inherit";
-			set_layout_type()
-		}
-	};
+    function end_running() {
+        document.getElementById("run").style.backgroundColor = "#6E6E6E";
+        document.getElementById("run").style.cursor = "pointer"
+        running_script = false;
+    }
+
+    document.getElementById("layout1").onclick = function () {
+        if (document.getElementById("layout1On").style.display === "none") {
+            document.getElementById("layout1On").style.display = "inherit";
+            document.getElementById("layout1Off").style.display = "none";
+            document.getElementById("layout2On").style.display = "none";
+            document.getElementById("layout2Off").style.display = "inherit";
+            set_layout_type()
+        }
+    };
+    document.getElementById("layout2").onclick = function () {
+        if (document.getElementById("layout2On").style.display === "none") {
+            document.getElementById("layout2On").style.display = "inherit";
+            document.getElementById("layout2Off").style.display = "none";
+            document.getElementById("layout1On").style.display = "none";
+            document.getElementById("layout1Off").style.display = "inherit";
+            set_layout_type()
+        }
+    };
 </script>
 </body>
 </html>

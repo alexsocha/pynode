@@ -125,12 +125,23 @@ class Node:
     def priority(self):
         return self._priority
 
-    def set_position(self, x, y, relative=False):
+    def set_position(self, x, y=None, relative=False):
         self._position = [x, y]
+        if x is None or y is None: self._position = None
         self._is_pos_relative = relative
         pynode_core.add_event(pynode_core.Event(pynode_core.js_node_set_position, [self._internal_id, x, y, relative]), self)
         return self
-    def position(self): return pynode_core.js_node_get_position(self)
+
+    # Note: Function should be used asynchronously in the online version. Call it in delayed and/or click listener functions.
+    def position(self):
+        data = pynode_core.get_data((pynode_core.Event(pynode_core.js_node_get_position, [self._internal_id])))
+        if graph.has_node(self) and data is not None and data[0] is not None and data[1] is not None:
+            return int(data[0]), int(data[1])
+        elif self._position is None: return None
+        else:
+            if self._is_pos_relative and data is not None and data[2] is not None and data[3] is not None:
+                return int(self._position[0] * data[2]), int(self._position[1] * data[3])
+            else: return int(self._position[0]), int(self._position[1])
 
     def set_label(self, text, label_id=0):
         self._labels[label_id] = text

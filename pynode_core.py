@@ -64,6 +64,14 @@ def add_event(event, source=None):
             event.func = window["js_run_function"]
         PynodeCoreGlobals.event_queue.append(event)
 
+def get_data(event, source=None):
+    if source is not None:
+        if isinstance(source, pynode_graphlib.Node) and not pynode_graphlib.graph.has_node(source): return None
+        if isinstance(source, pynode_graphlib.Edge) and not pynode_graphlib.graph.has_edge(source): return None
+    if isinstance(event, Event) and isinstance(event.func, str) and event.func.startswith("js_"):
+        return json.loads(window.js_run_function_with_return(event.func, json.dumps(event.args)))
+    return None
+
 def format_string_HTML(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>").replace("\"", "&quot;").replace("'", "&apos;").replace(" ", "&nbsp;")
 
@@ -259,15 +267,6 @@ def js_clear():
     window.greuler_instance.graph.removeNodes(window.getGraphNodes())
     js_update(True)
 
-# This is a workaround for a feature that should be implemented properly but isn't. Try not to use it.
-def js_node_get_position(node):
-    if window.greuler_instance.graph.hasNode({"id": node._internal_id}):
-        return (int(window.greuler_instance.graph.getNode({"id": node._internal_id}).x), int(window.greuler_instance.graph.getNode({"id": node._internal_id}).y))
-    elif node._position is None: return None
-    else:
-        if node._is_pos_relative: return (int(node._position[0] * window.greuler_instance.options.data.size[0]), int(node._position[1] * window.greuler_instance.options.data.size[1]))
-        else: return (int(node._position[0]), int(node._position[1]))
-
 # These functions have been moved over to JavaScript
 js_add_node = "js_add_node"
 js_remove_node = "js_remove_node"
@@ -278,6 +277,7 @@ js_remove_all = "js_remove_all"
 js_set_spread = "js_set_spread"
 js_node_set_value = "js_node_set_value"
 js_node_set_position = "js_node_set_position"
+js_node_get_position = "js_node_get_position"
 js_node_set_label = "js_node_set_label"
 js_node_set_size = "js_node_set_size"
 js_node_set_color = "js_node_set_color"

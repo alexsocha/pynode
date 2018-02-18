@@ -6,6 +6,8 @@ import time
 import traceback
 import sys
 import os
+import json
+import uuid
 from threading import Thread
 
 from pynode.src import update
@@ -22,6 +24,8 @@ update_thread = None
 run_thread = None
 
 is_running = True
+
+response_data = {}
 
 def set_run_function(func):
     global run_function
@@ -43,6 +47,20 @@ def send_data(s):
     pynode_process.stdin.write(("pynode:" + s + "\n").encode())
     pynode_process.stdin.flush()
 
+def send_data_with_response(s, args):
+    request_id = str(uuid.uuid4())
+    args.insert(1, request_id)
+    send_data(s + json.dumps(args))
+
+    response_data[request_id] = None
+    for i in range(0, 500):
+        time.sleep(0.01)
+        if response_data[request_id] is not None: break
+
+    result = json.loads(response_data[request_id])
+    response_data.pop(request_id, None)
+    return result
+
 def recieve_data(s):
     try:
         if s.startswith("pynode:"):
@@ -60,6 +78,11 @@ def recieve_data(s):
             if data.startswith("click:"):
                 args = data.split(":")
                 pynode_core.node_click(int(args[1]))
+            if data.startswith("response:"):
+                args = data.split(":")
+                response_id = args[1]
+                response_data[response_id] = data[len("response:" + response_id + ":"):]
+
     except: pass
     return True
 
