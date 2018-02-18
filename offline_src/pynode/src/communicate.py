@@ -128,7 +128,7 @@ def open_connection():
             # Bring window to foreground
             try:
                 DEVNULL = open(os.devnull, 'w')
-                subprocess.call(["/usr/bin/osascript -e 'tell app \"Finder\" to set frontmost of process \"PyNode\" to true'"], shell=True, stdout=DEVNULL, stderr=DEVNULL, close_fds=True)
+                subprocess.call(["/usr/bin/osascript -e 'activate application \"PyNode\"'"], shell=True, stdout=DEVNULL, stderr=DEVNULL, close_fds=True)
             except: pass
         elif operating_system == "linux":
             pynode_process = subprocess.Popen([os.path.join(APP_DIR, "cef/linux/pynode")], shell=False, cwd=APP_DIR, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
