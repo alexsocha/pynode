@@ -353,7 +353,7 @@ class Graph:
         else:
             arg_source = kwds["source"] if "source" in kwds else args[0]
             arg_target = kwds["target"] if "target" in kwds else args[1]
-            arg_weight = kwds["source"] if "source" in kwds else args[2] if len(args) > 2 else None
+            arg_weight = kwds["weight"] if "weight" in kwds else args[2] if len(args) > 2 else None
             arg_directed = kwds["directed"] if "directed" in kwds else args[3] if len(args) > 3 else False
             e = Edge(arg_source, arg_target, arg_weight, arg_directed)
         if self.has_edge(e): raise Exception("Instance of edge '" + str(e) + "' already in graph.")
