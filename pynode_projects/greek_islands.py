@@ -10,7 +10,7 @@ class Activity:
     def getType(self): return self.name
     def getCost(self): return self.cost
     def getTime(self): return self.time
-    
+
 island_nodes = []
 island_edges = []
 island_coordinates = {}
@@ -30,26 +30,26 @@ def create_node(name, activities, position, size):
     position = ((position[0] * 3.0) - 1500, (position[1] * 3.0) - 1500)
     n = Node(name).set_position(position[0], position[1]).set_size(size)
     island_coordinates[name] = position
-    
+
     # This is the array which contains all of the activities on an island
     activity_array = []
-    
+
     text = name
     for a in activities:
         activity = Activity.create()
         activity.setType(a)
-        
+
         # Automatically adjust the time and cost of an activity based on the amount of activities on the island
         # In theory, more activities -> island is larger and more popular -> activities take more time and are more expensive
         # Ideally, this would be specified manually, but due to time constraints a reasonable automatic process is used
         activity.setTime(int(ACTIVITIES[a][2] * (len(activities)**0.5)))
         activity.setCost(int(ACTIVITIES[a][1] * (len(activities)**0.5)))
         activity_array.append(activity)
-        
+
         # Visually show the activities as text on each node
         text += "\n" + str(ACTIVITY_NAMES[a][1]) + str(activity.getTime()) + "m $" + str(activity.getCost())
     n.set_value(text)
-    
+
     # Add the array of activities to the node, using PyNode's attribute system
     n.set_attribute("activities", activity_array)
     return n
@@ -57,21 +57,21 @@ def create_node(name, activities, position, size):
 def create_edges(node1, node2):
     # Calculate the distande between two islands, in kilometers
     d = (((island_coordinates[node1][0] - island_coordinates[node2][0]) ** 2 + (island_coordinates[node1][1] - island_coordinates[node2][1]) ** 2) ** 0.5) * 0.13
-    
+
     edges = []
     transport = [1.0, 0.5, 1.5]
     for i in range(len(transport)):
         e = Edge(node2, node1)
-        
+
         # Equations for calculating time and cost, detailed in the report
         x = transport[i]
         time = int(0.6 * (d / x))
         cost = int(1.005**d * 0.4 * x * d)
-        
+
         # Add the time and cost data to the edge, using PyNode's attribute system
         e.set_attribute("time", time)
         e.set_attribute("cost", cost)
-        
+
         # Set the visual appearance of the edge
         # Colors and emojis are used to better display the data visually
         e.set_weight((SPEEDBOAT_EMOJI if i == 0 else BOAT_EMOJI if i == 1 else PLANE_EMOJI) + str(time) + "m $" + str(cost))

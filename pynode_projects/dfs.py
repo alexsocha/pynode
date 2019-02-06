@@ -15,14 +15,17 @@ pause(1000)
 
 # Recursive DFS function
 def dfs(node):
-    if node.attribute("seen"): return
+    if node.attribute("seen"):
+        return
     node.set_attribute("seen", True)
     node.highlight()
-    if node is not start: node.set_color(Color.BLUE)
+    if node is not start:
+        node.set_color(Color.BLUE)
     pause(500)
     for e in node.outgoing_edges():
         n = e.other_node(node)
-        if n.attribute("seen"): continue
+        if n.attribute("seen"):
+            continue
         e.traverse(node)
         pause(500)
         dfs(n)

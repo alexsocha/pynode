@@ -24,7 +24,8 @@ pause(1000)
 
 # Visit a node and add all unseen incident edges to the priority queue
 def visit_node(n):
-    if n.attribute("seen"): return
+    if n.attribute("seen"):
+        return
     n.set_color(Color(219, 112, 147))
     n.highlight()
     n.set_attribute("seen", True)
@@ -35,7 +36,7 @@ def visit_node(n):
             e.set_attribute("seen", True)
             pq.put(e)
     pause(500)
- 
+
 # Choose a random start node
 start = graph.nodes()[random.randint(0, len(graph.nodes()) - 1)]
 visit_node(start)
@@ -61,4 +62,3 @@ for n in graph.nodes():
     heart = "❤"
     n.set_value(heart)
     n.highlight()
- 

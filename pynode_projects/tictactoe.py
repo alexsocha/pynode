@@ -64,19 +64,23 @@ def get_best_move(grid, player):
     sides = [(0, 1), (1, 0), (2, 1), (1, 2)]
     num_moves = 0
     for r in range(0, 3):
-        for c in range(0, 3): num_moves += 1 if grid[r][c] != 0 else 0
+        for c in range(0, 3):
+            num_moves += 1 if grid[r][c] != 0 else 0
 
     # 1. Win
     wins = get_wins(grid, player)
-    if len(wins) > 0: return random.choice(wins)
+    if len(wins) > 0:
+        return random.choice(wins)
 
     # 2. Block
     opponent_wins = get_wins(grid, opponent)
-    if len(opponent_wins) > 0: return random.choice(opponent_wins)
+    if len(opponent_wins) > 0:
+        return random.choice(opponent_wins)
 
     # 3. Fork
     forks = get_forks(grid, player)
-    if len(forks) > 0: return random.choice(forks)
+    if len(forks) > 0:
+        return random.choice(forks)
 
     # 4. Block Fork
     opponent_forks = get_forks(grid, opponent)
@@ -91,14 +95,17 @@ def get_best_move(grid, player):
                     new_wins = get_wins(new_grid, player)
                     if len(new_wins) > 0:
                         new_grid[new_wins[0][0]][new_wins[0][1]] = opponent
-                        if len(get_wins(new_grid, opponent)) < 2: return (r, c)
+                        if len(get_wins(new_grid, opponent)) < 2:
+                            return (r, c)
         # Option 2
         print("block fork 2 " + str(opponent_forks[0]))
         return random.choice(opponent_forks)
 
     # 5. Center (Or corner if first move)
-    if num_moves == 0: return (1, 1) if random.randint(0, 1) == 0 else random.choice(corners)
-    elif grid[1][1] == 0: return (1, 1)
+    if num_moves == 0:
+        return (1, 1) if random.randint(0, 1) == 0 else random.choice(corners)
+    elif grid[1][1] == 0:
+        return (1, 1)
 
     # 6. Opposite Corner
     for c in range(0, 4):
@@ -107,11 +114,13 @@ def get_best_move(grid, player):
 
     # 6. Empty Corner
     empty_corners = [c for c in corners if grid[c[0]][c[1]] == 0]
-    if len(empty_corners) > 0: return random.choice(empty_corners)
+    if len(empty_corners) > 0:
+        return random.choice(empty_corners)
 
     # 6. Empty Side
     empty_sides = [s for s in sides if grid[s[0]][s[1]] == 0]
-    if len(empty_sides) > 0: return random.choice(empty_sides)
+    if len(empty_sides) > 0:
+        return random.choice(empty_sides)
 
 # Checks for a win or tie, and performs an animation
 def check_end_game(grid):
@@ -122,8 +131,10 @@ def check_end_game(grid):
         winner = 2
     if sequence is not None:
         GameData.turn = 3
-        if winner == 1: GameData.turn_node.set_value("Player Wins! (This shouldn't be possible...)")
-        else: GameData.turn_node.set_value("Computer Wins!")
+        if winner == 1:
+            GameData.turn_node.set_value("Player Wins! (This shouldn't be possible...)")
+        else:
+            GameData.turn_node.set_value("Computer Wins!")
         edge1 = graph.edges_between(graph.node(sequence[0]), graph.node(sequence[1]))[0]
         edge2 = graph.edges_between(graph.node(sequence[1]), graph.node(sequence[2]))[0]
         color = Color.RED if winner == 2 else Color.GREEN

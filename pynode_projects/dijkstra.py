@@ -11,7 +11,8 @@ for element in data:
         element.set_value("∞")
         element.set_priority(1000000)
         element.set_attribute("dist", 1000000)
-    if isinstance(element, Edge): element.set_weight(random.randint(1, 20))
+    if isinstance(element, Edge):
+        element.set_weight(random.randint(1, 20))
 graph.add_all(data)
 pause(1000)
 
@@ -23,11 +24,13 @@ start.set_value(0); start.set_priority(0); start.set_attribute("dist", 0)
 pq = queue.PriorityQueue()
 pq.put(start)
 seen = {}
-for n in graph.nodes(): seen[n] = False
+for n in graph.nodes():
+    seen[n] = False
 while not pq.empty():
     # Get the node closest to the start node
     node = pq.get()
-    if seen[node]: continue
+    if seen[node]:
+        continue
     seen[node] = True
     node.set_size(node.size()*1.5)
     node.set_color(Color.RED)
@@ -53,16 +56,18 @@ while not pq.empty():
 
 # Reset node and edge color
 pause(500)
-for node in graph.nodes(): node.set_color(Color.DARK_GREY)
-for edge in graph.edges(): edge.set_color(Color.LIGHT_GREY)
+for node in graph.nodes():
+    node.set_color(Color.DARK_GREY)
+for edge in graph.edges():
+    edge.set_color(Color.LIGHT_GREY)
 pause(1000)
 
 # Select a random end node
 end = None
 for i in range(0, 100):
     end = graph.nodes()[random.randint(0, len(graph.nodes()) - 1)]
-    if start is end or graph.adjacent(start, end): continue
-    else: break
+    if not (start is end or graph.adjacent(start, end)):
+        break
 start.set_color(Color.GREEN)
 end.set_color(Color.GREEN)
 pause(1000)
@@ -74,7 +79,7 @@ while node is not start:
     edge = node.attribute("path")
     node = edge.other_node(node)
     path.append((node, edge))
-   
+
 # Animate the path
 for n, e in reversed(path):
     e.traverse(n, Color.GREEN)
