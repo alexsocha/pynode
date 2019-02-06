@@ -13,8 +13,7 @@
 ### Online Version
 * **pynode_graphlib.py\*** - The PyNode Graphlib API, which provides all Graph-related functions. This file maintains the current state of the graph, and informs graph_api.js of all the events that need to be visually displayed.
 * **pynode_core.py** - Handles the internal functions of the API, and acts as a bridge between pynode_graphlib.py and graph_api.js, allowing the API to be compatible with both the online and offline versions of PyNode.
-* **pynode.html** - The main page of the online version, which includes the editor, console, and output window. Also provides documentation for all features.
-* **index.html** - Exact copy of pynode.html used for the <a href="https://alexsocha.github.io/pynode/">gh-pages website</a>.
+* **index.html** - The main page of the online version, which includes the editor, console, and output window. Also provides documentation for all features.
 * **pynode_editor.html, pynode_console.html, pynode_output.html** - Detachable editor/console/output windows.
 * **pynode_pojects/** - Contains the Python code for the examples provided on the website.
 * **/css/\*** - Contains custom fonts and the main style sheet.
