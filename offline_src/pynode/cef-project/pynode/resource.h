@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Alex Socha
-// http://www.alexsocha.com/pynode
+// https://alexsocha.github.io/pynode
 
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
@@ -20,7 +20,7 @@
 #define _X86_
 
 // Next default values for new objects
-// 
+//
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1

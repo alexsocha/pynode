@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Alex Socha
-// http://www.alexsocha.com/pynode
+// https://alexsocha.github.io/pynode
 
 #include "pynode_handler.h"
 

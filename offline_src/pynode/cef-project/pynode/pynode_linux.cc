@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Alex Socha
-// http://www.alexsocha.com/pynode
+// https://alexsocha.github.io/pynode
 
 #include "pynode_app.h"
 #include <X11/Xlib.h>
@@ -24,7 +24,7 @@ int XIOErrorHandlerImpl(Display *display) {
 
 int main(int argc, char* argv[]) {
   CefMainArgs main_args(argc, argv);
-  
+
   int exit_code = CefExecuteProcess(main_args, NULL, NULL);
   if (exit_code >= 0) {
     return exit_code;
@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
 
   CefRefPtr<PyNodeApp> app(new PyNodeApp);
   CefInitialize(main_args, settings, app.get(), NULL);
-  
+
   CefRunMessageLoop();
   CefShutdown();
 

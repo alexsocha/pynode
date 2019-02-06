@@ -17,7 +17,7 @@ begin_pynode(run)
   * **main.py** - Imports all relevant Python functions, and installs updates before the rest of the code is run
   * **autoupdate.txt** - Can be used to turn off automatic updating.
 ### CEF Files
-  * **/cef** - Contains the final build of the C++ application. Note that the contents of this folder are not available in this repository due to their large size and OS dependence. Download them <a href="http://www.alexsocha.com/pynode#download">here</a>.
+  * **/cef** - Contains the final build of the C++ application. Note that the contents of this folder are not available in this repository due to their large size and OS dependence. Download them <a href="https://alexsocha.github.io/pynode#download">here</a>.
     * **os.txt** - Indicates the operating system of the PyNode distribution (win64/win32/macosx/linux), allowing the correct version of the application to be run.
     * **/win64** - Binaries for 64-bit Windows.
     * **/win32** - Binaries for 32-bit Windows.
@@ -52,7 +52,7 @@ If changes are made to the entire project (including the CEF applications), the 
 If files in the /pynode/src folder have been changed, follow the steps in the next section.
 ### PyNode Files (/pynode/src)
 If changes are made to the main PyNode files, located in the <a href="https://github.com/alexsocha/pynode/tree/master/offline_src/pynode/src">/pynode/src</a> folder:
-1. The version number in <a href="https://github.com/alexsocha/pynode/blob/master/offline_src/pynode/src/version.txt">/pynode/src/version.txt</a> should be incremented. 
+1. The version number in <a href="https://github.com/alexsocha/pynode/blob/master/offline_src/pynode/src/version.txt">/pynode/src/version.txt</a> should be incremented.
 2. The contents of this folder should be packaged into a zip file named "latest_src.zip" and put into the <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads">../offline_downloads</a> directory. Optionally, the fully packaged distributions may also be updated.
 3. The version number in <a href="https://github.com/alexsocha/pynode/tree/master/offline_downloads/latest_version.txt">../offline_downloads/latest_version.txt</a> should be set to the latest version (to allow automatic updating).
 ### Final Step

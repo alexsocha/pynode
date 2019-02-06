@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Alex Socha
-// http://www.alexsocha.com/pynode
+// https://alexsocha.github.io/pynode
 
 #ifndef CEF_PYNODE_PYNODE_HANDLER_H_
 #define CEF_PYNODE_PYNODE_HANDLER_H_

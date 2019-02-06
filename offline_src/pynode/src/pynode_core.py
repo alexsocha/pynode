@@ -1,5 +1,5 @@
 # Copyright (c) 2017 Alex Socha
-# http://www.alexsocha.com/pynode
+# https://alexsocha.github.io/pynode
 
 import sys
 import time
@@ -133,7 +133,7 @@ class Timer:
 
 def do_print(s):
     print(s)
-    
+
 timer = Timer()
 js_update = "js_update"
 js_add_node = "js_add_node"

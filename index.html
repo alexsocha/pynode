@@ -5,15 +5,14 @@
     <meta name="description" content="Interactive online Graph Theory.">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="css/pynode/style.css?version=0.9.7" rel="stylesheet" type="text/css">
+    <link href="css/style.css?version=0.9.7" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script src="js/pynode/resize.js?version=0.9.7"></script>
-    <script src="js/pynode/d3_controls.js?version=0.9.7"></script>
-    <script src="js/pynode/graph_api.js?version=0.9.7"></script>
-    <script src="js/pynode/d3/d3.v3.min.js?version=0.9.7"></script>
-    <script src="js/pynode/cola/cola.v3.js?version=0.9.7"></script>
-    <script src="js/pynode/greuler/greuler.js?version=0.9.8"></script>
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="js/resize.js?version=0.9.7"></script>
+    <script src="js/d3_controls.js?version=0.9.7"></script>
+    <script src="js/graph_api.js?version=0.9.7"></script>
+    <script src="js/d3/d3.v3.min.js?version=0.9.7"></script>
+    <script src="js/cola/cola.v3.js?version=0.9.7"></script>
+    <script src="js/greuler/greuler.js?version=0.9.8"></script>
     <script>
         var editor_exists = false;
         var pynode_output;
@@ -96,7 +95,7 @@
                 var client = new XMLHttpRequest();
                 client.open("GET", "pynode_projects/" + project_name + ".py");
                 client.onreadystatechange = function () {
-                    if (client.readyState == 4 && client.status == 200) {
+                    if (client.readyState == 4) {
                         project_src = client.responseText;
                         if (editor_exists) {
                             editor.setValue(project_src, -1);
@@ -116,45 +115,24 @@
             window.history.pushState("object or string", "Title", "" + newUrl);
         }
     </script>
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-96109432-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
 </head>
 
 <body class="pynode" onload="resize();brython({debug:1})" onresize="resize()">
 <div class="pynodeContainer">
-    <!--#include virtual="global_html/nav_bar.html"-->
     <div class="pageWholeWrapper">
         <div class="pageTopWrapper">
             <div class="pageTop">
-                <div class="pynodeGithubStar">
-                    <a class="github-button" href="https://github.com/alexsocha/pynode" data-icon="octicon-star"
-                       data-size="large" aria-label="Star alexsocha/pynode on GitHub">Star</a>
-                </div>
-                <div class="pynodeLogo"><img src="images/pynode/logo.png" width="120" height="120"></div>
+                <div class="pynodeLogo"><img src="images/logo.png" width="120" height="120"></div>
                 <div class="pynodeTitle">PyNode</div>
                 <div class="pynodeSubtitle">
-                    <h3>Graph Theory Visualiser</h3>
+                    <h3>Graph Theory Visualizer</h3>
                 </div>
-
+                <div class="pynodeAuthorSubtitle">
+                    <h5>By <a href="https://github.com/alexsocha">Alex Socha</a></h5>
+                </div>
                 <div class="pynodeDescription">
-                    <p>PyNode allows you to create, animate and display graphs with a simple python interface, all
-                        within your browser. The offline version is available <a href="#download">here</a>. Try the
-                        examples below, or write your own!</p>
+                    <p>PyNode allows you to create, animate and display graphs with a simple Python interface, all
+                        within your browser.<br>Try the examples below, or write your own!</p>
                     <ul>
                         <li>
                             <p><a href="#" onclick="openCode('dijkstra'); return false;">Dijkstra's Algorithm</a></p>
@@ -173,6 +151,8 @@
                             <p><a href="#" onclick="openCode('tictactoe'); return false;">Tic Tac Toe</a></p>
                         </li>
                     </ul>
+                    <br>
+                    <p>Note: You can now use <a href="https://github.com/algrx/algorithmx">AlgorithmX</a> to create even better network visualizations!</p>
                 </div>
             </div>
         </div>
@@ -187,14 +167,14 @@
                             <div class="appSectionEnlarge">
                                 <div class="appSectionBarIconFirst"><h3><a href="pynode_editor.html"
                                                                            onclick="return editorPopup(800, 690)"><img
-                                        src="images/pynode/controls/resize.png" width="20" height="20"></a></h3></div>
+                                        src="images/controls/resize.png" width="20" height="20"></a></h3></div>
                                 <div class="appSectionBarIconDivider"></div>
                                 <div class="appSectionBarIcon"><h3><a href=""
                                                                       onclick="document.getElementById('file-input').click(); return false;"><img
-                                        src="images/pynode/controls/import.png" width="16" height="16"></a></h3></div>
+                                        src="images/controls/import.png" width="16" height="16"></a></h3></div>
                                 <div class="appSectionBarIcon"><h3><a href=""
                                                                       onclick="userSaveCode(); return false;"><img
-                                        src="images/pynode/controls/save.png" width="16" height="16"></a></h3></div>
+                                        src="images/controls/save.png" width="16" height="16"></a></h3></div>
                             </div>
                         </div>
                         <div id="editorBox">
@@ -210,7 +190,7 @@
                             </div>
                             <div class="appSectionEnlarge">
                                 <h3><a href="pynode_output.html" onclick="return outputPopup(800, 690)"><img
-                                        src="images/pynode/controls/resize.png" width="20" height="20"></a></h3>
+                                        src="images/controls/resize.png" width="20" height="20"></a></h3>
                             </div>
                         </div>
                         <div id="outputBox">
@@ -219,48 +199,48 @@
                         <div class="editorButtonBar">
                             <div id="run" class="editorButton">
                                 <div id="runPlay">
-                                    <div class="editorButtonIcon"><img src="images/pynode/controls/play.png" width="20"
+                                    <div class="editorButtonIcon"><img src="images/controls/play.png" width="20"
                                                                        height="20"></div>
                                     <h4>PLAY</h4>
                                 </div>
                                 <div id="runPlayLoad">
-                                    <div class="editorButtonIcon"><img src="images/pynode/controls/loading.png"
+                                    <div class="editorButtonIcon"><img src="images/controls/loading.png"
                                                                        width="20" height="20"></div>
                                     <h4>LOADING</h4>
                                 </div>
                                 <div id="runPause">
-                                    <div class="editorButtonIcon"><img src="images/pynode/controls/pause.png" width="20"
+                                    <div class="editorButtonIcon"><img src="images/controls/pause.png" width="20"
                                                                        height="20"></div>
                                     <h4>PAUSE</h4>
                                 </div>
                                 <div id="runResume">
-                                    <div class="editorButtonIcon"><img src="images/pynode/controls/play.png" width="20"
+                                    <div class="editorButtonIcon"><img src="images/controls/play.png" width="20"
                                                                        height="20"></div>
                                     <h4>RESUME</h4>
                                 </div>
                             </div>
                             <div id="stop" class="editorButton">
-                                <div class="editorButtonIcon"><img src="images/pynode/controls/stop.png" width="20"
+                                <div class="editorButtonIcon"><img src="images/controls/stop.png" width="20"
                                                                    height="20"></div>
                                 <h4>STOP</h4>
                             </div>
                             <div id="restart" class="editorButton">
-                                <div class="editorButtonIcon"><img src="images/pynode/controls/restart.png" width="20"
+                                <div class="editorButtonIcon"><img src="images/controls/restart.png" width="20"
                                                                    height="20"></div>
                                 <h4>RESTART</h4>
                             </div>
                             <div class="buttonBarLayoutPanel">
                                 <div id="layout1">
                                     <div id="layout1On" class="layoutButtonOn" style="display: inherit"><img
-                                            src="images/pynode/controls/layoutButton1.png" width="20" height="20"></div>
+                                            src="images/controls/layoutButton1.png" width="20" height="20"></div>
                                     <div id="layout1Off" class="layoutButtonOff" style="display: none"><img
-                                            src="images/pynode/controls/layoutButton1.png" width="20" height="20"></div>
+                                            src="images/controls/layoutButton1.png" width="20" height="20"></div>
                                 </div>
                                 <div id="layout2">
                                     <div id="layout2On" class="layoutButtonOn" style="display: none"><img
-                                            src="images/pynode/controls/layoutButton2.png" width="20" height="20"></div>
+                                            src="images/controls/layoutButton2.png" width="20" height="20"></div>
                                     <div id="layout2Off" class="layoutButtonOff" style="display: inherit"><img
-                                            src="images/pynode/controls/layoutButton2.png" width="20" height="20"></div>
+                                            src="images/controls/layoutButton2.png" width="20" height="20"></div>
                                 </div>
                             </div>
                         </div>
@@ -272,7 +252,7 @@
                             </div>
                             <div class="appSectionEnlarge">
                                 <h3><a href="pynode_console.html" onclick="return consolePopup(800, 690)"><img
-                                        src="images/pynode/controls/resize.png" width="20" height="20"></a></h3>
+                                        src="images/controls/resize.png" width="20" height="20"></a></h3>
                             </div>
                         </div>
                         <div class="consoleBox">
@@ -568,7 +548,7 @@
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>
                 <div class="pynodeDownloadBox">
-                    <div class="pynodeDownloadBoxIcon"><img src="images/pynode/download/windows.svg" width="45"
+                    <div class="pynodeDownloadBoxIcon"><img src="images/download/windows.svg" width="45"
                                                             height="45"></div>
                     <div class="pynodeDownloadBoxTextWin">
                         <a href="offline_downloads/pynode_win64.zip">Download PyNode for Windows 64-bit</a>
@@ -577,14 +557,14 @@
                     </div>
                 </div>
                 <div class="pynodeDownloadBox">
-                    <div class="pynodeDownloadBoxIcon"><img src="images/pynode/download/mac.svg" width="45" height="45">
+                    <div class="pynodeDownloadBoxIcon"><img src="images/download/mac.svg" width="45" height="45">
                     </div>
                     <div class="pynodeDownloadBoxTextMac">
                         <a href="offline_downloads/pynode_macosx.zip">Download PyNode for macOS</a>
                     </div>
                 </div>
                 <div class="pynodeDownloadBoxLinux">
-                    <div class="pynodeDownloadBoxIconLinux"><img src="images/pynode/download/linux.svg" width="70"
+                    <div class="pynodeDownloadBoxIconLinux"><img src="images/download/linux.svg" width="70"
                                                                  height="70">
                     </div>
                     <div class="pynodeDownloadBoxTextLinux">
@@ -597,7 +577,7 @@
             <div class="pageWhole">
                 <h1>About</h1>
                 <p>&nbsp;</p>
-                <p>PyNode was created and designed by Alex Socha, using the following technologies:</p>
+                <p>PyNode was designed and created by <a href="https://github.com/alexsocha">Alex Socha</a>, using the following technologies:</p>
                 <ul>
                     <li>
                         <p><a href="http://marvl.infotech.monash.edu/webcola/">WebCola</a> - Monash Adaptive
@@ -619,29 +599,14 @@
                         <p><a href="https://ace.c9.io/#nav=about" target="_blank">ace</a> - Ajax.org (<a
                                 href="https://github.com/ajaxorg/ace">GitHub</a>)</p>
                     </li>
-                    <li>
-                        <p><a href="pynode_graphlib.py" target="_blank">GraphLib</a> - Alex Socha</p>
-                    </li>
                 </ul>
-                <p>Copyright &#169 Alex Socha
-                    <script language="javascript" type="text/javascript">var today = new Date();
-                    var year = today.getFullYear();
-                    document.write(year)</script>
-                </p>
             </div>
         </div>
     </div>
-    <div class="pageInfoWrapper">
-        <p class="footerText">Copyright &#169 Alex Socha
-            <script language="javascript" type="text/javascript">var today = new Date();
-            var year = today.getFullYear();
-            document.write(year)</script>
-        </p>
-    </div>
 </div>
-<script src="js/pynode/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/pynode/ace/mode-python.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/pynode/ace/ext-language-tools.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ace/mode-python.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ace/ext-language-tools.js" type="text/javascript" charset="utf-8"></script>
 <script>
     resize();
     var editor = ace.edit("editor");
@@ -676,7 +641,7 @@
         var client = new XMLHttpRequest();
         client.open("GET", "pynode_projects/" + name + ".py");
         client.onreadystatechange = function () {
-            if (client.readyState == 4 && client.status == 200) {
+            if (client.readyState == 4) {
                 if (editor_exists) {
                     editor.setValue(client.responseText, -1);
                     saveCode();
@@ -721,7 +686,7 @@
 </script>
 
 <input id="file-input" type="file" name="name" style="display: none;"/>
-<script type="text/javascript" src="js/pynode/filesaver/filesaver.min.js?version=0.9.2"></script>
+<script type="text/javascript" src="js/filesaver/filesaver.min.js?version=0.9.2"></script>
 <script>
     function userLoadCode(event) {
         var files = event.target.files;
@@ -752,8 +717,8 @@
         height: 400
     });
 </script>
-<script type="text/javascript" src="js/pynode/brython/brython.js?version=0.9.7"></script>
-<script type="text/javascript" src="js/pynode/brython/brython_stdlib.js?version=0.9.7"></script>
+<script type="text/javascript" src="js/brython/brython.js?version=0.9.7"></script>
+<script type="text/javascript" src="js/brython/brython_stdlib.js?version=0.9.7"></script>
 <script type="text/python3" id="tests_editor">
 	import pynode_core
 	from browser import window, document, alert
@@ -762,9 +727,6 @@
 	document["run"].bind("click", pynode_core.button_play)
 	document["stop"].bind("click", pynode_core.button_stop)
 	document["restart"].bind("click", pynode_core.button_restart)
-
-
-
 </script>
 <script>
     document.getElementById("run").style.backgroundColor = "#6E6E6E";

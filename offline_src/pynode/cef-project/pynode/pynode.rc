@@ -34,7 +34,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_FIXEDSYS | DS_CENTER | 
 CAPTION "About PyNode"
 FONT 10, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-LTEXT           "Copyright \xa9 Alex Socha 2017\nhttp://www.alexsocha.com/pynode", IDC_STATIC, 50, 15, 120, 30
+LTEXT           "Copyright \xa9 Alex Socha 2017\nhttps://alexsocha.github.io/pynode", IDC_STATIC, 50, 15, 120, 30
 ICON            IDI_PYNODE, 103, 19, 16, 20, 20, SS_ICON
 END
 

@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Alex Socha
-// http://www.alexsocha.com/pynode
+// https://alexsocha.github.io/pynode
 
 #include "pynode_handler.h"
 #include "pynode_app.h"
@@ -126,7 +126,7 @@ bool PyNodeHandler::OnContextMenuCommand(CefRefPtr<CefBrowser> browser, CefRefPt
         return true;
 #endif
 #if defined(OS_LINUX)
-	
+
 std::thread t([](){
 	Display *dpy = XOpenDisplay(NULL);
 	int blackColor = BlackPixel(dpy, DefaultScreen(dpy));
@@ -136,27 +136,27 @@ std::thread t([](){
 	int windowHeight = 100;
 	int windowX = (screen->width / 2) - (windowWidth / 2);
 	int windowY = (screen->height / 2) - (windowHeight / 2);
-	Window w = XCreateSimpleWindow(dpy, DefaultRootWindow(dpy), windowX, windowY, 
+	Window w = XCreateSimpleWindow(dpy, DefaultRootWindow(dpy), windowX, windowY,
 				windowWidth, windowHeight, 1, blackColor, whiteColor);
 	XMapWindow(dpy, w);
 	GC gc = XCreateGC(dpy, w, 0, 0);
 	XSelectInput(dpy, w, ExposureMask | KeyPressMask);
-	
+
 	XSizeHints wmsize;
 	wmsize.flags = USPosition | PMinSize | PMaxSize;
 	wmsize.x = windowX; wmsize.y = windowY;
 	wmsize.min_width = windowWidth; wmsize.min_height = windowHeight;
 	wmsize.max_width = windowWidth; wmsize.max_height = windowHeight;
 	XSetWMNormalHints(dpy, w, &wmsize);
-	
+
 	XStoreName(dpy, w, "About PyNode");
-	
-	Atom WM_DELETE_WINDOW = XInternAtom(dpy, "WM_DELETE_WINDOW", False); 
+
+	Atom WM_DELETE_WINDOW = XInternAtom(dpy, "WM_DELETE_WINDOW", False);
 	XSetWMProtocols(dpy, w, &WM_DELETE_WINDOW, 1);
 	XEvent e;
 	const char *msg1 = "About PyNode";
 	const char *msg2 = "Copyright \xa9 Alex Socha 2017";
-	const char *msg3 = "http://www.alexsocha.com/pynode";
+	const char *msg3 = "https://alexsocha.github.io/pynode";
 	while (1) {
 		XNextEvent(dpy, &e);
 		if (e.type == Expose) {
@@ -199,7 +199,7 @@ void PyNodeHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
     CEF_REQUIRE_UI_THREAD();
 
 	std::cout << "pynode:exit" << std::endl;
-    
+
     BrowserList::iterator bit = browser_list_.begin();
     for (; bit != browser_list_.end(); ++bit) {
         if ((*bit)->IsSame(browser)) {
@@ -227,7 +227,7 @@ void PyNodeHandler::CloseAllBrowsers(bool force_close) {
         return;
     }
     if (browser_list_.empty()) return;
-    
+
     BrowserList::const_iterator it = browser_list_.begin();
     for (; it != browser_list_.end(); ++it)
         (*it)->GetHost()->CloseBrowser(force_close);

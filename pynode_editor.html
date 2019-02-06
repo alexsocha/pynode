@@ -6,9 +6,9 @@
     <meta name="description" content="Interactive online Graph Theory.">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="css/pynode/style.css?version=0.9.7" rel="stylesheet" type="text/css">
+    <link href="css/style.css?version=0.9.7" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script src="js/pynode/resize.js?version=0.9.7"></script>
+    <script src="js/resize.js?version=0.9.7"></script>
 
     <script>
         var enable_editor = true;
@@ -26,9 +26,9 @@
                 <div class="appSectionEnlarge">
                     <div class="appSectionBarIcon"><h3><a href=""
                                                           onclick="document.getElementById('file-input').click(); return false;"><img
-                            src="images/pynode/controls/import.png" width="16" height="16"></a></h3></div>
+                            src="images/controls/import.png" width="16" height="16"></a></h3></div>
                     <div class="appSectionBarIcon"><h3><a href="" onclick="userSaveCode(); return false;"><img
-                            src="images/pynode/controls/save.png" width="16" height="16"></a></h3></div>
+                            src="images/controls/save.png" width="16" height="16"></a></h3></div>
                 </div>
             </div>
             <div id="editorBox">
@@ -37,9 +37,9 @@
         </div>
     </div>
 </div>
-<script src="js/pynode/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/pynode/ace/mode-python.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/pynode/ace/ext-language-tools.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ace/mode-python.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ace/ext-language-tools.js" type="text/javascript" charset="utf-8"></script>
 <script>
     editor_resize();
     var editor = ace.edit("editor");
@@ -71,7 +71,7 @@
 </script>
 
 <input id="file-input" type="file" name="name" style="display: none;"/>
-<script type="text/javascript" src="js/pynode/filesaver/filesaver.min.js?version=0.9.2"></script>
+<script type="text/javascript" src="js/filesaver/filesaver.min.js?version=0.9.2"></script>
 <script>
     function userLoadCode(event) {
         var files = event.target.files;

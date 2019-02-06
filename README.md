@@ -1,6 +1,6 @@
 # PyNode: Graph Theory Visualizer
-<a href="http://www.alexsocha.com/pynode"><img src="http://www.alexsocha.com/images/pynode/logo.png" align="left" hspace="10" vspace="6" width="100px" height="100px"></a>
-**PyNode** is a Python library for visualizing Graph Theory. It can be used to develop algorithm prototypes, or to demonstrate how algorithms work in a visual, interactive way. It is available in both an online version (current directory) and offline version (<a href="https://github.com/alexsocha/pynode/tree/master/offline_src">/offline_src</a>). The official website can be found <a href="http://www.alexsocha.com/pynode">here</a>.
+<a href="https://alexsocha.github.io/pynode"><img src="http://www.alexsocha.com/images/logo.png" align="left" hspace="10" vspace="6" width="100px" height="100px"></a>
+**PyNode** is a Python library for visualizing Graph Theory. It can be used to develop algorithm prototypes, or to demonstrate how algorithms work in a visual, interactive way. It is available in both an online version (current directory) and offline version (<a href="https://github.com/alexsocha/pynode/tree/master/offline_src">/offline_src</a>). The official website can be found <a href="https://alexsocha.github.io/pynode">here</a>.
 <br><br>
 
 ## How It Works
@@ -17,9 +17,9 @@
 * **index.html** - Exact copy of pynode.html used for the <a href="https://alexsocha.github.io/pynode/">gh-pages website</a>.
 * **pynode_editor.html, pynode_console.html, pynode_output.html** - Detachable editor/console/output windows.
 * **pynode_pojects/** - Contains the Python code for the examples provided on the website.
-* **/css/pynode\*** - Contains custom fonts and the main style sheet.
+* **/css/\*** - Contains custom fonts and the main style sheet.
 * **/images/pynode\*** - Contains all icons used in the interface.
-* **/js/pynode\*** - Contains all JavaScript code.
+* **/js/\*** - Contains all JavaScript code.
     * **graph_api.js** - Visually updates the graph, in parallel with the calls that were made to the GraphLib API.
     * **d3_controls.js** - Handles interface events such as panning and zooming.
     * **resize.js** - Handles resizing of the window, and includes functions which manage node layout/positioning.
@@ -32,13 +32,13 @@
     * **latest_version.zip** - Contains the latest version of the <a href="https://github.com/alexsocha/pynode/tree/master/offline_src/pynode/src">/offline_src/pynode/src</a> folder packaged in a zip file, allowing for automatic updates.
     * **latest_version.txt** - Specifies the current version number.
     * **pynode_win64.zip, pynode_macosx.zip, etc.** - Contains the fully packaged offline versions of PyNode for various operating systems.
-    
+
 _\* These files should be kept in sync between the online and offline versions._
 
 ## Publishing
 All pull requests and changes should be made to the master branch. Once thoroughly tested, changes in the master branch should be pushed to the gh-pages branch, and can be viewed at <a href="https://alexsocha.github.io/pynode/">alexsocha.github.io/pynode</a>.
 
-Once every hour, changes made to the gh-pages website will be automatically published to <a href="http://www.alexsocha.com/pynode">www.alexsocha.com/pynode</a>.
+Once every hour, changes made to the gh-pages website will be automatically published to <a href="https://alexsocha.github.io/pynode">www.alexsocha.com/pynode</a>.
 
 ### Offline Version
 If changes are made to files that are also used in the offline version (indicated by a '\*'), the corresponding files in the <a href="https://github.com/alexsocha/pynode/tree/master/offline_src">/offline_src</a> folder should also be updated, and the procedure for publishing the offline version (specifically the "PyNode Files" section) should be followed.

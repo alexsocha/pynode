@@ -1,5 +1,5 @@
 // Copyright (c) 2017 Alex Socha
-// http://www.alexsocha.com/pynode
+// https://alexsocha.github.io/pynode
 
 #include "pynode_app.h"
 
@@ -109,7 +109,7 @@ void PyNodeApp::OnContextInitialized()
 
 	CefString path = PYNODEPATH "/src/html/pynode_output.html";
 	CefString absulote_path;
-	
+
 #if defined(OS_MACOSX)
 	char buffer[PATH_MAX + 1];
 	absulote_path = realpath(path.ToString().c_str(), buffer);
@@ -126,7 +126,7 @@ void PyNodeApp::OnContextInitialized()
 	CefString url = "file://" + absulote_path.ToString();
 	CefWindowInfo window_info;
 	int window_width = 600, window_height = 600;
-	
+
 #if defined(OS_MACOSX)
 	window_info.width = window_width;
 	window_info.height = window_height;
@@ -150,7 +150,7 @@ void PyNodeApp::OnContextInitialized()
 	window_info.x = (screen->width / 2) - (window_width / 2);
 	window_info.y = (screen->height / 2) - (window_height / 2);
 #endif
-	
+
 	CefBrowserHost::CreateBrowser(window_info, handler, url, browser_settings, NULL);
 
 	std::thread monitor_thread(MonitorPython, "");

@@ -1,5 +1,5 @@
 # Copyright (c) 2017 Alex Socha
-# http://www.alexsocha.com/pynode
+# https://alexsocha.github.io/pynode
 
 import subprocess
 import time
@@ -86,7 +86,7 @@ def recieve_data(s):
     except: pass
     return True
 
-            
+
 def monitor_data():
     try:
         while True:

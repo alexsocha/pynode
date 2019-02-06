@@ -1,5 +1,5 @@
 # Copyright (c) 2017 Alex Socha
-# http://www.alexsocha.com/pynode
+# https://alexsocha.github.io/pynode
 
 import os
 import shutil
@@ -8,7 +8,7 @@ import urllib.request
 
 from pynode.src import communicate
 
-_WEBSITE = "http://www.alexsocha.com/offline_downloads"
+_WEBSITE = "https://alexsocha.github.io/offline_downloads"
 
 is_updating = False
 
