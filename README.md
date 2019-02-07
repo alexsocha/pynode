@@ -1,5 +1,5 @@
 # PyNode: Graph Theory Visualizer
-<a href="https://alexsocha.github.io/pynode"><img src="http://www.alexsocha.com/images/logo.png" align="left" hspace="10" vspace="6" width="100px" height="100px"></a>
+<a href="https://alexsocha.github.io/pynode/"><img src="https://alexsocha.github.io/pynode/images/logo.png" align="left" hspace="10" vspace="6" width="100px" height="100px"></a>
 **PyNode** is a Python library for visualizing Graph Theory. It can be used to develop algorithm prototypes, or to demonstrate how algorithms work in a visual, interactive way. It is available in both an online version (current directory) and offline version (<a href="https://github.com/alexsocha/pynode/tree/master/offline_src">/offline_src</a>). The official website can be found <a href="https://alexsocha.github.io/pynode">here</a>.
 <br><br>
 
@@ -36,8 +36,6 @@ _\* These files should be kept in sync between the online and offline versions._
 
 ## Publishing
 All pull requests and changes should be made to the master branch. Once thoroughly tested, changes in the master branch should be pushed to the gh-pages branch, and can be viewed at <a href="https://alexsocha.github.io/pynode/">alexsocha.github.io/pynode</a>.
-
-Once every hour, changes made to the gh-pages website will be automatically published to <a href="https://alexsocha.github.io/pynode">www.alexsocha.com/pynode</a>.
 
 ### Offline Version
 If changes are made to files that are also used in the offline version (indicated by a '\*'), the corresponding files in the <a href="https://github.com/alexsocha/pynode/tree/master/offline_src">/offline_src</a> folder should also be updated, and the procedure for publishing the offline version (specifically the "PyNode Files" section) should be followed.
