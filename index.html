@@ -86,34 +86,67 @@
     <script>
         var read_storage = true;
         var project_src;
-        var query = window.location.search.substring(1);
-        if (query.length > 0) {
-            var pair = query.split("=");
-            if (pair.length == 2 && pair[0] == "project") {
-                project_name = pair[1];
-                read_storage = false;
-                var client = new XMLHttpRequest();
-                client.open("GET", "pynode_projects/" + project_name + ".py");
-                client.onreadystatechange = function () {
-                    if (client.readyState == 4) {
-                        project_src = client.responseText;
-                        if (editor_exists) {
-                            editor.setValue(project_src, -1);
-                        }
+
+        const searchParams = new URLSearchParams(window.location.search);
+
+        if (searchParams.get("project")) {
+            project_name = pair[1];
+            read_storage = false;
+            var client = new XMLHttpRequest();
+            client.open("GET", "pynode_projects/" + project_name + ".py");
+            client.onreadystatechange = function () {
+                if (client.readyState == 4) {
+                    project_src = client.responseText;
+                    if (editor_exists) {
+                        editor.setValue(project_src, -1);
                     }
-                    else {
+                }
+                else {
+                    read_storage = true;
+                    if (editor_exists) {
+                        loadCode()
+                    }
+                }
+            };
+            client.send();
+        } else if (searchParams.get("gist")) {
+
+            const gist_slug = searchParams.get("gist");
+
+            // Should be in the form username-gistid
+            if (gist_slug.includes("-")) {
+                fetch(`https://gist.githubusercontent.com/${gist_slug.replace("-", "/")}/raw`).then(r => {
+
+                    if (r.status == 200) {
+                        return r.text()
+                    } else {
                         read_storage = true;
                         if (editor_exists) {
                             loadCode()
                         }
                     }
-                };
-                client.send();
+
+                }).then(t => {
+                    if (t) {
+                        editor_text = `# Content loaded from Github gist: https://gist.github.com/${gist_slug}\n\n${t}`;
+
+                        if (editor_exists) {
+                            editor.setValue(editor_text, -1);
+                        }
+                    }
+                })
+            } else {
+                read_storage = true;
+                if (editor_exists) {
+                    loadCode()
+                }
             }
-            var url = window.location.href;
-            var newUrl = url.substring(url.lastIndexOf('/') + 1).split("?")[0];
-            window.history.pushState("object or string", "Title", "" + newUrl);
+
         }
+
+        var url = window.location.href;
+        var newUrl = url.substring(url.lastIndexOf('/') + 1).split("?")[0];
+        window.history.pushState("object or string", "Title", "" + newUrl);
     </script>
 </head>
 
@@ -150,7 +183,13 @@
                         <li>
                             <p><a href="#" onclick="openCode('tictactoe'); return false;">Tic Tac Toe</a></p>
                         </li>
+                        <li>
+                            <p>
+                                <input type="url" id="gisturl" placeholder="https://gist.github.com/username/83efe8c19b9dd6489167e67464030d04" /> <button onclick="">Load Github Gist</button>
+                            </p>
+                        </li>
                     </ul>
+
                     <br>
                     <p>Note: You can now use <a href="https://github.com/algrx/algorithmx">AlgorithmX</a> to create even better network visualizations!</p>
                 </div>
