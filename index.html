@@ -112,43 +112,60 @@
         } else if (searchParams.get("gist")) {
 
             read_storage = false;
+
+            // Get the gist id from the url search params
             const gist_slug = searchParams.get("gist");
+            localStorage.setItem("code", "");
 
             // Should be in the form username-gistid
             // e.g. jdoe-83efe8c19b9dd6489167e67464030d04
             if (gist_slug.includes("-")) {
+
+                // Fetch the raw content of the gist
                 fetch(`https://gist.githubusercontent.com/${gist_slug.replace("-", "/")}/raw`).then(r => {
 
                     if (r.status == 200) {
+                        localStorage.removeItem("code");
                         return r.text()
                     } else {
                         read_storage = true;
                         if (editor_exists) {
-                            loadCode()
+                            loadCode("# Couldn't load gist  (http != 200).\n# Please try again later.\n\n")
                         }
                     }
 
                 }).then(t => {
                     if (t) {
+
+                        // Add a small prefix to inform the user whether the gist was loaded from the server or from local storage
                         editor_text = `# Content loaded from Github gist on ${new Date().toLocaleString()}\n# https://gist.github.com/${gist_slug.replace("-", "/")}\n\n${t}`;
 
                         if (editor_exists) {
                             editor.setValue(editor_text, -1);
+                            saveCode();
                         }
                     }
-                })
+                }).catch(e => {
+
+                    read_storage = true;
+                    if (editor_exists) {
+                        loadCode("# Couldn't load gist (fetch error).\n# Please try again later.\n\n")
+                    }
+
+                });
+
             } else {
                 read_storage = true;
                 if (editor_exists) {
-                    loadCode()
+                    loadCode("# Couldn't load gist (invalid gist slug).\n# Please try again later.\n\n")
                 }
             }
 
         }
 
-        var url = window.location.href;
-        var newUrl = url.substring(url.lastIndexOf('/') + 1).split("?")[0];
-        window.history.pushState("object or string", "Title", "" + newUrl);
+        // var url = window.location.href;
+        // var newUrl = url.substring(url.lastIndexOf('/') + 1).split("?")[0];
+        // window.history.pushState("object or string", "Title", "" + newUrl);
 
         function loadGistFromUrl() {
 
@@ -723,23 +740,28 @@
         localStorage.setItem("code", getCode())
     }
 
-    function loadCode() {
+    function loadCode(prefix) {
         src = localStorage.getItem("code");
         if (src === null || src == "") {
-            openCode("dijkstra");
+            openCode("dijkstra", prefix);
         }
+
+        if (prefix) {
+            src = prefix + src;
+        }
+
         else {
             editor.setValue(src, -1);
         }
     }
 
-    function openCode(name) {
+    function openCode(name, prefix) {
         var client = new XMLHttpRequest();
         client.open("GET", "pynode_projects/" + name + ".py");
         client.onreadystatechange = function () {
             if (client.readyState == 4) {
                 if (editor_exists) {
-                    editor.setValue(client.responseText, -1);
+                    editor.setValue((prefix || "") + client.responseText, -1);
                     saveCode();
                 }
             }
