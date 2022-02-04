@@ -155,6 +155,8 @@
                         if (editor_exists) {
                             editor.setValue(editor_text, -1);
                             saveCode();
+                        } else {
+                            localStorage.setItem("code", editor_text);
                         }
                     }
                 }).catch(e => {
