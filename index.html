@@ -115,30 +115,42 @@
 
             // Get the gist id from the url search params
             const gist_slug = searchParams.get("gist");
+
+            console.log("Gist parameter found, value: " + gist_slug);
+
             localStorage.setItem("code", "");
 
             // Should be in the form username-gistid
             // e.g. jdoe-83efe8c19b9dd6489167e67464030d04
-            if (gist_slug.includes("-")) {
+            if (gist_slug.includes("-") && gist_slug.split("-")[1].length === 32) {
+
+                console.log("Gist slug seems to be valid, fetching...");
 
                 // Fetch the raw content of the gist
                 fetch(`https://gist.githubusercontent.com/${gist_slug.replace("-", "/")}/raw`).then(r => {
 
+                    console.log("Response status: " + r.status);
+
                     if (r.status == 200) {
-                        localStorage.removeItem("code");
+                        localStorage.setItem("code", "");
                         return r.text()
                     } else {
                         read_storage = true;
                         if (editor_exists) {
                             loadCode("# Couldn't load gist  (http != 200).\n# Please try again later.\n\n")
                         }
+                        return null;
                     }
 
                 }).then(t => {
                     if (t) {
 
+                        console.log("Gist content fetched, setting code...");
+
                         // Add a small prefix to inform the user whether the gist was loaded from the server or from local storage
                         editor_text = `# Content loaded from Github gist on ${new Date().toLocaleString()}\n# https://gist.github.com/${gist_slug.replace("-", "/")}\n\n${t}`;
+
+                        console.log(editor_text);
 
                         if (editor_exists) {
                             editor.setValue(editor_text, -1);
