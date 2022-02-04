@@ -111,9 +111,11 @@
             client.send();
         } else if (searchParams.get("gist")) {
 
+            read_storage = false;
             const gist_slug = searchParams.get("gist");
 
             // Should be in the form username-gistid
+            // e.g. jdoe-83efe8c19b9dd6489167e67464030d04
             if (gist_slug.includes("-")) {
                 fetch(`https://gist.githubusercontent.com/${gist_slug.replace("-", "/")}/raw`).then(r => {
 
@@ -128,7 +130,7 @@
 
                 }).then(t => {
                     if (t) {
-                        editor_text = `# Content loaded from Github gist: https://gist.github.com/${gist_slug}\n\n${t}`;
+                        editor_text = `# Content loaded from Github gist on ${new Date().toLocaleString()}\n# https://gist.github.com/${gist_slug.replace("-", "/")}\n\n${t}`;
 
                         if (editor_exists) {
                             editor.setValue(editor_text, -1);
@@ -147,6 +149,17 @@
         var url = window.location.href;
         var newUrl = url.substring(url.lastIndexOf('/') + 1).split("?")[0];
         window.history.pushState("object or string", "Title", "" + newUrl);
+
+        function loadGistFromUrl() {
+
+            const url = document.getElementById("gisturl").value;
+            const slug = url.replace("https://gist.github.com/", "").replace("/", "-");
+
+            const newUrl = `${location.protocol}//${location.hostname}/?gist=${slug}`;
+            window.location.href = newUrl;
+
+        }
+
     </script>
 </head>
 
@@ -185,7 +198,7 @@
                         </li>
                         <li>
                             <p>
-                                <input type="url" id="gisturl" placeholder="https://gist.github.com/username/83efe8c19b9dd6489167e67464030d04" /> <button onclick="">Load Github Gist</button>
+                                Import Github Gist (<a href="#gisthelp">info and help</a>) :  <input type="url" id="gisturl" placeholder="https://gist.github.com/username/83efe8c19b9dd6489167e67464030d04" /> <button onclick="loadGistFromUrl()">Load</button>
                             </p>
                         </li>
                     </ul>
@@ -579,6 +592,50 @@
                             instance of the clicked node.</p>
                     </li>
                 </ul>
+
+                <p>&nbsp;</p>
+
+                <h2 id="gisthelp">Publishing via Github Gists</h2>
+                <br/>
+                <p>
+                    You can load a PyNode script from Github's gists service. Gists are snippets of text or files that are public and stored on Github.
+                    They are useful for sharing small files with people. PyNode can load your script from a Gist so that you can just send somebody a link to show them a graph.
+                </p>
+
+                <br/>
+
+                <p>
+                    Below are instructions for uploading your PyNode script to Github and then using it.
+                </p>
+
+                <p>
+                    <ol>
+                        <li>
+                            Create a new Gist. If you have a Github account, <a href="https://gist.new" target="_blank">click here</a> to create a new Gist. If not, <a href=""https://github.com/join?return_to=https://gist.github.com/new&source=header-gist" target="_blank">click here</a> to sign up and create one.
+                        </li>
+
+                        <li>
+                            Paste your PyNode script here and press the "Save" button.
+                        </li>
+
+                        <li>
+                            Copy the URL of the page that you are taken to after you save your Gist.
+                        </li>
+
+                        <li>
+                            Enter the URL on the PyNode homepage and click 'Load'
+                        </li>
+
+                        <li>
+                            You should be taken to a page that shows the graph that you just created.
+                        </li>
+                    </ol>
+                </p>
+
+                <p>
+                    <b>Note</b>: This is not a two-way sync. If you edit the script in PyNode, the Gist will not be updated. You will need to update it within Github. Gists are more for publishing your script over saving it.
+                </p>
+
             </div>
             <div class="pageWhole" id="download">
                 <h1>Download</h1>
