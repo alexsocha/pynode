@@ -156,7 +156,20 @@
                             editor.setValue(editor_text, -1);
                             saveCode();
                         } else {
-                            localStorage.setItem("code", editor_text);
+
+                            console.log("The editor hasn't loaded yet. Retrying every second.");
+
+                            window.loadInGistInterval = setInterval(() => {
+                                if (editor_exists) {
+                                    console.log("The editor loaded, setting code...");
+                                    editor.setValue(editor_text, -1);
+                                    saveCode();
+                                    clearInterval(window.loadInGistInterval);
+                                } else {
+                                    console.log("The editor hasn't loaded yet.");
+                                }
+                            }, 100);
+
                         }
                     }
                 }).catch(e => {
