@@ -155,7 +155,7 @@
             const url = document.getElementById("gisturl").value;
             const slug = url.replace("https://gist.github.com/", "").replace("/", "-");
 
-            const newUrl = `${location.protocol}//${location.hostname}/?gist=${slug}`;
+            const newUrl = `${location.href.replace(window.location.search,"")}?gist=${slug}`;
             window.location.href = newUrl;
 
         }
