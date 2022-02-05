@@ -118,7 +118,7 @@
 
             console.log("Gist parameter found, value: " + gist_slug);
 
-            localStorage.setItem("code", "");
+            // localStorage.setItem("code", "");
 
             // Should be in the form username-gistid
             // e.g. jdoe-83efe8c19b9dd6489167e67464030d04
@@ -132,7 +132,7 @@
                     console.log("Response status: " + r.status);
 
                     if (r.status == 200) {
-                        localStorage.setItem("code", "");
+                        // localStorage.setItem("code", "");
                         return r.text()
                     } else {
                         read_storage = true;
