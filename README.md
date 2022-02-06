@@ -34,8 +34,8 @@
 
 _\* These files should be kept in sync between the online and offline versions._
 
-## Publishing
-All pull requests and changes should be made to the master branch. Once thoroughly tested, changes in the master branch should be pushed to the gh-pages branch, and can be viewed at <a href="https://alexsocha.github.io/pynode/">alexsocha.github.io/pynode</a>.
+## Contributing
+All pull requests should be made to the master branch. Once merged, the changes will be automatically deployed to the gh-pages branch, and can be viewed at <a href="https://alexsocha.github.io/pynode/">alexsocha.github.io/pynode</a>.
 
 ### Offline Version
 If changes are made to files that are also used in the offline version (indicated by a '\*'), the corresponding files in the <a href="https://github.com/alexsocha/pynode/tree/master/offline_src">/offline_src</a> folder should also be updated, and the procedure for publishing the offline version (specifically the "PyNode Files" section) should be followed.
