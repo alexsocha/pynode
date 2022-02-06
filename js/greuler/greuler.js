@@ -1154,10 +1154,21 @@
                 }, {
                     key: 'unit',
                     value: function unit(a) {
+                        var length;
                         if (a.x === 0 && a.y === 0) {
-                            throw Error('the length of the vector is 0');
+                            // Basically, this error sometimes gets thrown when you're trying to 
+                            // specifically set the position of the nodes in PyNode. It's super
+                            // annoying and is thrown through a bunch of nested functions so, along
+                            // with the Python -> JS transpilation it's almost impossible to find
+                            // the actual reason why the error matters. So I am just removing it and
+                            // hardcoding a very small vector length so a DivisionByZero error doesn't
+                            // occur. This probably isn't good code or anything but I have tested it
+                            // and it seems to work.
+                            // throw Error('the length of the vector is 0');
+                            length = 0.0001;
+                        } else {
+                            length = this.len(a);
                         }
-                        var length = this.len(a);
                         return new Vector(a.x / length, a.y / length);
                     }
                 }, {

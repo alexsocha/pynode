@@ -86,34 +86,124 @@
     <script>
         var read_storage = true;
         var project_src;
-        var query = window.location.search.substring(1);
-        if (query.length > 0) {
-            var pair = query.split("=");
-            if (pair.length == 2 && pair[0] == "project") {
-                project_name = pair[1];
-                read_storage = false;
-                var client = new XMLHttpRequest();
-                client.open("GET", "pynode_projects/" + project_name + ".py");
-                client.onreadystatechange = function () {
-                    if (client.readyState == 4) {
-                        project_src = client.responseText;
-                        if (editor_exists) {
-                            editor.setValue(project_src, -1);
-                        }
+
+        const searchParams = new URLSearchParams(window.location.search);
+
+        if (searchParams.get("project")) {
+            project_name = pair[1];
+            read_storage = false;
+            var client = new XMLHttpRequest();
+            client.open("GET", "pynode_projects/" + project_name + ".py");
+            client.onreadystatechange = function () {
+                if (client.readyState == 4) {
+                    project_src = client.responseText;
+                    if (editor_exists) {
+                        editor.setValue(project_src, -1);
                     }
-                    else {
+                }
+                else {
+                    read_storage = true;
+                    if (editor_exists) {
+                        loadCode()
+                    }
+                }
+            };
+            client.send();
+        } else if (searchParams.get("gist")) {
+
+            read_storage = false;
+
+            // Get the gist id from the url search params
+            const gist_slug = searchParams.get("gist");
+
+            console.log("Gist parameter found, value: " + gist_slug);
+
+            // localStorage.setItem("code", "");
+
+            // Should be in the form username-gistid
+            // e.g. jdoe-83efe8c19b9dd6489167e67464030d04
+            if (gist_slug.includes("-") && gist_slug.split("-")[1].length === 32) {
+
+                console.log("Gist slug seems to be valid, fetching...");
+
+                // Fetch the raw content of the gist
+                fetch(`https://gist.githubusercontent.com/${gist_slug.replace("-", "/")}/raw`).then(r => {
+
+                    console.log("Response status: " + r.status);
+
+                    if (r.status == 200) {
+                        // localStorage.setItem("code", "");
+                        return r.text()
+                    } else {
                         read_storage = true;
                         if (editor_exists) {
-                            loadCode()
+                            loadCode("# Couldn't load gist  (http != 200).\n# Please try again later.\n\n")
+                        }
+                        return null;
+                    }
+
+                }).then(t => {
+                    if (t) {
+
+                        console.log("Gist content fetched, setting code...");
+
+                        // Add a small prefix to inform the user whether the gist was loaded from the server or from local storage
+                        editor_text = `# Content loaded from Github gist on ${new Date().toLocaleString()}\n# https://gist.github.com/${gist_slug.replace("-", "/")}\n\n${t}`;
+
+                        console.log(editor_text);
+
+                        if (editor_exists) {
+                            editor.setValue(editor_text, -1);
+                            saveCode();
+                        } else {
+
+                            console.log("The editor hasn't loaded yet. Retrying every second.");
+
+                            window.loadInGistInterval = setInterval(() => {
+                                if (editor_exists) {
+                                    console.log("The editor loaded, setting code...");
+                                    editor.setValue(editor_text, -1);
+                                    saveCode();
+                                    clearInterval(window.loadInGistInterval);
+                                } else {
+                                    console.log("The editor hasn't loaded yet.");
+                                }
+                            }, 100);
+
                         }
                     }
-                };
-                client.send();
+                }).catch(e => {
+
+                    read_storage = true;
+                    if (editor_exists) {
+                        loadCode("# Couldn't load gist (fetch error).\n# Please try again later.\n\n")
+                    }
+
+                });
+
+            } else {
+                read_storage = true;
+                if (editor_exists) {
+                    loadCode("# Couldn't load gist (invalid gist slug).\n# Please try again later.\n\n")
+                }
             }
-            var url = window.location.href;
-            var newUrl = url.substring(url.lastIndexOf('/') + 1).split("?")[0];
-            window.history.pushState("object or string", "Title", "" + newUrl);
+
         }
+
+        // var url = window.location.href;
+        // var newUrl = url.substring(url.lastIndexOf('/') + 1).split("?")[0];
+        // window.history.pushState("object or string", "Title", "" + newUrl);
+
+        function loadGistFromUrl() {
+
+            const url = document.getElementById("gisturl").value;
+            const slug = url.replace("https://gist.github.com/", "").replace("/", "-");
+
+            const newUrl = `${location.href.replace(window.location.search,"")}?gist=${slug}`;
+            window.location.href = newUrl;
+
+        }
+
     </script>
 </head>
 
@@ -150,7 +240,13 @@
                         <li>
                             <p><a href="#" onclick="openCode('tictactoe'); return false;">Tic Tac Toe</a></p>
                         </li>
+                        <li>
+                            <p>
+                                Import Github Gist (<a href="#gisthelp">info and help</a>) :  <input type="url" id="gisturl" placeholder="https://gist.github.com/username/83efe8c19b9dd6489167e67464030d04" /> <button onclick="loadGistFromUrl()">Load</button>
+                            </p>
+                        </li>
                     </ul>
+
                     <br>
                     <p>Note: You can now use <a href="https://github.com/algrx/algorithmx">AlgorithmX</a> to create even better network visualizations!</p>
                 </div>
@@ -540,6 +636,50 @@
                             instance of the clicked node.</p>
                     </li>
                 </ul>
+
+                <p>&nbsp;</p>
+
+                <h2 id="gisthelp">Publishing via Github Gists</h2>
+                <br/>
+                <p>
+                    You can load a PyNode script from Github's gists service. Gists are snippets of text or files that are public and stored on Github.
+                    They are useful for sharing small files with people. PyNode can load your script from a Gist so that you can just send somebody a link to show them a graph.
+                </p>
+
+                <br/>
+
+                <p>
+                    Below are instructions for uploading your PyNode script to Github and then using it.
+                </p>
+
+                <p>
+                    <ol>
+                        <li>
+                            Create a new Gist. If you have a Github account, <a href="https://gist.new" target="_blank">click here</a> to create a new Gist. If not, <a href=""https://github.com/join?return_to=https://gist.github.com/new&source=header-gist" target="_blank">click here</a> to sign up and create one.
+                        </li>
+
+                        <li>
+                            Paste your PyNode script here and press the "Save" button.
+                        </li>
+
+                        <li>
+                            Copy the URL of the page that you are taken to after you save your Gist.
+                        </li>
+
+                        <li>
+                            Enter the URL on the PyNode homepage and click 'Load'
+                        </li>
+
+                        <li>
+                            You should be taken to a page that shows the graph that you just created.
+                        </li>
+                    </ol>
+                </p>
+
+                <p>
+                    <b>Note</b>: This is not a two-way sync. If you edit the script in PyNode, the Gist will not be updated. You will need to update it within Github. Gists are more for publishing your script over saving it.
+                </p>
+
             </div>
             <div class="pageWhole" id="download">
                 <h1>Download</h1>
@@ -627,23 +767,28 @@
         localStorage.setItem("code", getCode())
     }
 
-    function loadCode() {
+    function loadCode(prefix) {
         src = localStorage.getItem("code");
         if (src === null || src == "") {
-            openCode("dijkstra");
+            openCode("dijkstra", prefix);
         }
+
+        if (prefix) {
+            src = prefix + src;
+        }
+
         else {
             editor.setValue(src, -1);
         }
     }
 
-    function openCode(name) {
+    function openCode(name, prefix) {
         var client = new XMLHttpRequest();
         client.open("GET", "pynode_projects/" + name + ".py");
         client.onreadystatechange = function () {
             if (client.readyState == 4) {
                 if (editor_exists) {
-                    editor.setValue(client.responseText, -1);
+                    editor.setValue((prefix || "") + client.responseText, -1);
                     saveCode();
                 }
             }
